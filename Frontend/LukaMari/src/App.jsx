@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, Link} from 'react-router-dom'
 import './index.css'
 import './Components/image_selector.jsx'
 import ImageSelector from './Components/image_selector.jsx';
@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 function EncodePage(){
 return(
-    <div className='flex flex-col'>
+    <div className='flex flex-col mb-32'>
 
     <div className='flex flex-col justify-center items-center'>
      <h1 className=' text-3xl mt-5 text-purple-500 font-semibold'>Encode(Sender)</h1>
@@ -90,13 +90,151 @@ return(
 }
 
 function DecodePage(){
-return <h1>This is the Decode page.</h1>
+return (
+  <div className='mb-32'>
+
+    <div className='flex flex-col justify-center items-center '>
+      <h1 className='text-green-600 font-semibold text-3xl mt-5'>
+        Decode Page(Reciever)
+        </h1>
+
+        <p className='text-gray-400 text-1.5xl'>
+          Extract Hidden message from an image.
+          </p>
+
+    </div>
+
+    <div className='flex flex-col justify-center'>
+
+      <h1 className='font-semibold'> 
+        1. Upload Stego Image.
+      </h1>
+      <ImageSelector/>
+
+    </div>
+    <div className='flex flex-col justify-center'>
+       <h1 className='font-semibold mt-2'> 
+        2. Enter Password.
+      </h1>
+
+     <input type='password' placeholder='*********' className='
+      w-full
+            overflow-hidden
+            resize-none
+            border-2
+            border-gray-400
+            bg-white-200
+            text-black
+            p-1
+            rounded-xl
+            outline-none
+            focus:ring-2
+            focus:ring-purple-400
+            placeholder:text-gray-400
+            '/>
+    </div>
+
+    <div className='flex flex-col'>
+      <h1 className='font-semibold'>3. Extract and Decrypt</h1>
+          <button type='submit' className='
+          bg-green-300
+          text-white
+          hover:bg-purple-300
+          rounded-xl
+          p-2
+          mt-2
+          '>
+           Extract and Decrypt Message.
+            </button>
+    </div>
+    <div className='flex flex-col bg-gray-100 rounded-xl mt-4 shadow-xl gap-2 '>
+       <h1 className='font-semibold text-green-600 p-2 tracking-wide '>
+        Decrypted Message
+        </h1>
+        <textarea 
+        readOnly
+        placeholder="Decrypted Message will appear here."
+        className='
+        w-full
+        border-2
+        rounded-xl
+        border-green-300
+        outline-none
+        focus:ring-2
+        focus:ring-green-400
+        min-h-31.25
+        bg-green-50
+        '>
+        </textarea>
+
+        <button className='mt-3 
+        bg-green-50
+        text-green-500
+        border-2
+        outline-none
+        border-green-200
+        rounded-xl
+        hover:ring-2
+        hover:ring-green-400
+        p-1.5
+        mb-2
+        font-semibold
+        text-s
+        '>
+          Copy to Clipboard.
+          </button>
+        </div>
+  </div>
+
+);  
 }
 
 function App() {
   return (
    <div className='flex justify-center items-center'>
-    <EncodePage/>
+   <div className='flex fixed justify-center bottom-0 pb-4'>
+    <nav className='flex 
+    justify-around
+     items-center
+      bg-gray-400
+        w-full 
+        gap-30
+        bottom-0 
+        px-8
+        py-4
+        rounded-2xl
+        shadow-lg'>
+    
+    <Link to='/' className='
+     bg-purple-200
+      rounded-2xl
+      p-3
+      hover:bg-purple-400
+      transition
+      delay-100
+      font-semibold
+      '>
+      Encode
+      </Link>
+
+    <Link to='/decode' className='bg-green-200
+     rounded-2xl
+      p-3
+      hover:bg-green-400
+      transition
+      delay-100
+      font-semibold
+      '>
+        Decode
+      </Link>
+
+    </nav>
+    </div>
+    <Routes>
+      <Route path='/' element={<EncodePage/>}/>
+      <Route path='/decode' element={<DecodePage/>}/>
+      <Route path='*' element={<h1>404 not found</h1>}/>
+    </Routes>
    </div>
   )
 }

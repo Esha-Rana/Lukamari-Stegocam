@@ -10,7 +10,7 @@ export default function ImageSelector(){
 
     return(
         <div className='flex justify-center items-center'>
-            <div className='bg-gray-300 p-8 rounded-2xl shadow-2xl flex flex-col items-center gap-4'>
+            <div className='bg-gray-300 p-8 rounded-2xl shadow-xl flex flex-col items-center gap-4'>
             <p className='text-black-400 text-xs'>Select an image from your device.</p>
             <input 
             type='file'
