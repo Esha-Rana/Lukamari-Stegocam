@@ -27,3 +27,5 @@ desktop.ini
 #cd ML
 #venv\Scripts\Activate
 #Remove-Item .git\index.lock
+
+#npm run dev
