@@ -1,23 +1,15 @@
-// ==============================
-// 🔐 AES-GCM CRYPTO MODULE
-// ==============================
-
-// Convert string → Uint8Array
 function toBytes(str) {
   return new TextEncoder().encode(str);
 }
 
-// Convert bytes → string
 function fromBytes(bytes) {
   return new TextDecoder().decode(bytes);
 }
 
-// Convert ArrayBuffer → base64
 function toBase64(buffer) {
   return btoa(String.fromCharCode(...new Uint8Array(buffer)));
 }
 
-// Convert base64 → ArrayBuffer
 function fromBase64(base64) {
   const binary = atob(base64);
   const bytes = new Uint8Array(binary.length);
@@ -27,9 +19,6 @@ function fromBase64(base64) {
   return bytes.buffer;
 }
 
-// ------------------------------
-// 🔑 KEY GENERATION (PASSWORD → KEY)
-// ------------------------------
 async function getKey(password, salt) {
   const keyMaterial = await crypto.subtle.importKey(
     "raw",
@@ -42,7 +31,7 @@ async function getKey(password, salt) {
   return crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
-      salt: salt,
+      salt,
       iterations: 100000,
       hash: "SHA-256",
     },
@@ -53,9 +42,6 @@ async function getKey(password, salt) {
   );
 }
 
-// ------------------------------
-// 🔐 ENCRYPT
-// ------------------------------
 export async function encryptMessage(message, password) {
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const iv = crypto.getRandomValues(new Uint8Array(12));
@@ -63,10 +49,7 @@ export async function encryptMessage(message, password) {
   const key = await getKey(password, salt);
 
   const encrypted = await crypto.subtle.encrypt(
-    {
-      name: "AES-GCM",
-      iv,
-    },
+    { name: "AES-GCM", iv },
     key,
     toBytes(message)
   );
@@ -78,9 +61,6 @@ export async function encryptMessage(message, password) {
   };
 }
 
-// ------------------------------
-// 🔓 DECRYPT
-// ------------------------------
 export async function decryptMessage(data, password) {
   try {
     const salt = fromBase64(data.salt);
@@ -90,16 +70,14 @@ export async function decryptMessage(data, password) {
     const key = await getKey(password, salt);
 
     const decrypted = await crypto.subtle.decrypt(
-      {
-        name: "AES-GCM",
-        iv,
-      },
+      { name: "AES-GCM", iv },
       key,
       ciphertext
     );
 
     return fromBytes(decrypted);
-  } catch (err) {
-    return "ERROR: Wrong password";
+  } catch (e) {
+    return "❌ Wrong password";
   }
 }
+
