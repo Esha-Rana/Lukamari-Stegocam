@@ -28,4 +28,6 @@ desktop.ini
 #venv\Scripts\Activate
 #Remove-Item .git\index.lock
 
+#cd Frontend 
+#cd LukaMari
 #npm run dev
