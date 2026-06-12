@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../index.css";
-
+import { Link,Route,Routes } from 'react-router-dom';
+import ForgotPassword from "./ForgotPass";
 export default function LoginPage() {
   const [formData, setFormData] = useState({
     email: "",
@@ -111,9 +112,9 @@ export default function LoginPage() {
             <h4 className="text-blue-400 ml-1 font-semibold">Create One.</h4>
           </div>
           <div className="flex justify-end items-end mr-3">
-            <h4 className="text-blue-400 font-semibold">
+            <Link to='/forgotpass' className="text-blue-400 font-semibold">
               Forgot Your Password?
-            </h4>
+            </Link>
             </div>
         </div>
       </div>
@@ -124,6 +125,9 @@ export default function LoginPage() {
         <button type="button" className='text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400'>Google</button>
         <button type="button" className='text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400'>Github</button>
       </div>
+      <Routes>
+        <Route path="/forgotpass" element={<ForgotPassword/>}></Route>
+      </Routes>
     </div>
   );
 }

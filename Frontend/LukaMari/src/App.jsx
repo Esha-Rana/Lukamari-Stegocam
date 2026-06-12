@@ -8,6 +8,7 @@ import "./Components/LoginPage.jsx"
 import LoginPage from './Components/LoginPage.jsx'
 import { loadImageToCanvas, convertToGrayscale, exportCanvasAsPNG, downloadBlob } from './utils/canvas'
 import { encodeMessageInPixels, decodeMessageFromPixels } from './utils/stegno'
+import ForgotPassword from "./Components/ForgotPass.jsx";
 
 function NavBar(){
   return(
@@ -370,6 +371,7 @@ function App() {
         <Route path='/decode' element={<DecodePage />} />
         <Route path='/login' element={<LoginPage/>}></Route>
         <Route path='*' element={<h1>404 not found</h1>} />
+        <Route path="/forgotpass" element={<ForgotPassword/>}/>
       </Routes>
 
     </div>
