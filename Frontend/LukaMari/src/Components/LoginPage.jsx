@@ -1,17 +1,11 @@
 import { useState } from "react";
 import "../index.css";
-import { Link,Route,Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import ForgotPassword from "./ForgotPass";
-export default function LoginPage() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
 
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  });
+export default function LoginPage() {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,17 +40,16 @@ export default function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
-
-    // ✅ Ready to call your API here
     console.log("Logging in with:", formData);
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-3/4 min-h-screen "> 
-    <div className="flex items-start fixed top-10 left-16">
-    <h3 className="text-white tracking-widest font-extralight text-2xl">luka</h3>
-    <h2 className="text-blue-400 tracking-widest font-semibold text-2xl" >MARI</h2>
-    </div>
+    <div className="flex flex-col justify-center items-center w-3/4 min-h-screen">
+      <div className="flex items-start fixed top-10 left-16">
+        <h3 className="text-white tracking-widest font-extralight text-2xl">luka</h3>
+        <h2 className="text-blue-400 tracking-widest font-semibold text-2xl">MARI</h2>
+      </div>
+
       <div className="flex flex-col w-3/4 bg-black gap-1 rounded-2xl p-6">
         <h2 className="font-light flex tracking-wide text-white">Welcome Back!</h2>
         <h3 className="font-extralight flex text-white">Sign in to your account</h3>
@@ -109,24 +102,25 @@ export default function LoginPage() {
         <div className="flex justify-between mt-2">
           <div className="flex justify-start">
             <h4 className="text-white ml-3 font-extralight">Don't have an Account,</h4>
-            <h4 className="text-blue-400 ml-1 font-semibold">Create One.</h4>
+            <Link to="/signup" className="text-blue-400 ml-1 font-semibold">Create One.</Link>
           </div>
           <div className="flex justify-end items-end mr-3">
-            <Link to='/forgotpass' className="text-blue-400 font-semibold">
+            <Link to="/forgotpass" className="text-blue-400 font-semibold">
               Forgot Your Password?
             </Link>
-            </div>
+          </div>
         </div>
       </div>
-    
-      <p className="text-gray-400 mt-3 flex "> Or sign in with</p>
-  
-      <div className=" mt-3 rouned flex w-3/4 justify-around">
-        <button type="button" className='text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400'>Google</button>
-        <button type="button" className='text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400'>Github</button>
+
+      <p className="text-gray-400 mt-3 flex">Or sign in with</p>
+
+      <div className="mt-3 rouned flex w-3/4 justify-around">
+        <button type="button" className="text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400">Google</button>
+        <button type="button" className="text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400">Github</button>
       </div>
+
       <Routes>
-        <Route path="/forgotpass" element={<ForgotPassword/>}></Route>
+        <Route path="/forgotpass" element={<ForgotPassword />} />
       </Routes>
     </div>
   );

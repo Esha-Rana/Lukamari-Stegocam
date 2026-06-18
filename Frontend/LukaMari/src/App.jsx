@@ -9,6 +9,8 @@ import LoginPage from './Components/LoginPage.jsx'
 import { loadImageToCanvas, convertToGrayscale, exportCanvasAsPNG, downloadBlob } from './utils/canvas'
 import { encodeMessageInPixels, decodeMessageFromPixels } from './utils/stegno'
 import ForgotPassword from "./Components/ForgotPass.jsx";
+import SignupPage from './Components/SignupPage.jsx'
+import ProfilePage from './Components/ProfilePage.jsx'
 
 function NavBar(){
   return(
@@ -372,6 +374,8 @@ function App() {
         <Route path='/login' element={<LoginPage/>}></Route>
         <Route path='*' element={<h1>404 not found</h1>} />
         <Route path="/forgotpass" element={<ForgotPassword/>}/>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
 
     </div>
