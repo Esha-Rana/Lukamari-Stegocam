@@ -12,28 +12,26 @@ export default function ImageSelector({ onImageSelect }) {
   }
 
   return (
-    <div className='flex justify-center items-center'>
-      <div className='bg-gray-300 p-8 rounded-2xl shadow-xl flex flex-col items-center gap-4'>
-        <p className='text-black-400 text-xs'>Select an image from your device.</p>
-        <input
-          type='file'
-          accept="image/*"
-          onChange={ImageHandler}
-          className='
-            text-white
-            file:mr-4
-            file:py-2
-            file:px-4
-            file:rounded-lg
-            file:border-0
-            file:font-semibold
-            file:bg-gray-500
-            file:text-white
-            hover:file:bg-green-700
-            cursor-pointer
-          '
-        />
-      </div>
-    </div>
+    <div className="bg-[#2a2d3a] rounded-2xl p-6 flex flex-col items-center gap-4">
+
+  <p className="text-gray-300 font-medium">
+    🖼️ Select an image from your device
+  </p>
+
+  <label
+    className="cursor-pointer bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-xl font-semibold transition"
+  >
+    📂 Choose Image
+
+    <input
+      type="file"
+      hidden
+      accept="image/*"
+      onChange={(e)=>onImageSelect(e.target.files[0])}
+    />
+
+  </label>
+
+</div>
   )
 }
