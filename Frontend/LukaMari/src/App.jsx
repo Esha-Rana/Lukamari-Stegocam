@@ -10,6 +10,7 @@ import { saveImage, getImages, deleteImage } from "./utils/indexedDB";
 
 import LoginPage from "./Components/LoginPage.jsx";
 import ForgotPassword from "./Components/ForgotPass.jsx";
+
 import {
   FaLock,
   FaImage,
@@ -19,6 +20,9 @@ import {
   FaUnlock,
   FaUpload,
 } from "react-icons/fa";
+
+import SignupPage from './Components/SignupPage.jsx'
+import ProfilePage from './Components/ProfilePage.jsx'
 
 import {
   loadImageToCanvas,
@@ -505,15 +509,19 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#16171d] text-white flex justify-center">
       <div className="w-full max-w-xl px-4 pt-6">
+
         <Routes>
           <Route path="/" element={<EncodePage />} />
           <Route path="/decode" element={<DecodePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgotpass" element={<ForgotPassword />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="*" element={<h1>404 not found</h1>} />
         </Routes>
+
       </div>
     </div>
   );
 }
-
