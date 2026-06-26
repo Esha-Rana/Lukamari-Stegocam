@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const [images, setImages] = useState([]);
   const [preview, setPreview] = useState(null);
+  const [storageSize, setStorageSize] = useState("0.00");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +15,18 @@ export default function Dashboard() {
 
   async function loadImages() {
     const data = await getImages();
-    setImages(Array.isArray(data) ? data : []);
+
+    const imgs = Array.isArray(data) ? data : [];
+
+    setImages(imgs);
+
+    let total = 0;
+
+    imgs.forEach((img) => {
+      total += img.image.length;
+    });
+
+    setStorageSize((total / 1024 / 1024).toFixed(2));
   }
 
   async function handleDelete(id) {
@@ -22,68 +35,151 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-4 text-white">
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold text-blue-400">
-          Dashboard (Storage)
-        </h1>
+    <div className="min-h-screen bg-[#16171d] text-white p-6">
 
-        {/* BACK BUTTON */}
+      {/* HEADER */}
+
+      <div className="flex justify-between items-center mb-8">
+
+        <div>
+
+          <h1 className="text-3xl font-bold text-blue-400">
+            📊 Dashboard
+          </h1>
+
+          <p className="text-gray-400 mt-1">
+            Manage your encoded images securely.
+          </p>
+
+        </div>
+
         <button
           onClick={() => navigate("/")}
-          className="bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700"
+          className="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-xl transition"
         >
           ← Back to Encode
         </button>
+
       </div>
 
+      {/* STATS */}
+
+      <div className="grid grid-cols-2 gap-5 mb-8">
+
+        <div className="bg-[#1f222b] rounded-2xl border border-gray-700 p-6 shadow-lg">
+
+          <p className="text-gray-400">
+            📸 Images Stored
+          </p>
+
+          <h2 className="text-4xl font-bold text-green-400 mt-2">
+            {images.length}
+          </h2>
+
+        </div>
+
+        <div className="bg-[#1f222b] rounded-2xl border border-gray-700 p-6 shadow-lg">
+
+          <p className="text-gray-400">
+            💾 Storage Used
+          </p>
+
+          <h2 className="text-4xl font-bold text-blue-400 mt-2">
+            {storageSize} MB
+          </h2>
+
+        </div>
+
+      </div>
+
+      {/* TITLE */}
+
+      <h2 className="text-2xl font-semibold mb-5">
+        🖼 Saved Images
+      </h2>
+
       {images.length === 0 ? (
-        <p className="text-gray-400">No saved images found.</p>
+
+        <div className="bg-[#1f222b] rounded-2xl border border-gray-700 p-10 text-center">
+
+          <p className="text-gray-400 text-lg">
+            No saved images found.
+          </p>
+
+        </div>
+
       ) : (
-        <div className="grid grid-cols-1 gap-4">
+
+        <div className="grid md:grid-cols-2 gap-6">
+
           {images.map((item) => (
+
             <div
               key={item.id}
-              className="bg-[#1f222b] border border-gray-700 rounded-xl p-3"
+              className="bg-[#1f222b] border border-gray-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition"
             >
-              {/* IMAGE */}
+
               <img
                 src={item.image}
-                alt="saved"
-                className="w-full rounded-lg cursor-pointer hover:opacity-80"
+                alt="Saved"
+                className="w-full h-56 object-cover cursor-pointer hover:scale-105 transition duration-300"
                 onClick={() => setPreview(item.image)}
               />
 
-              {/* TIME */}
-              <p className="text-xs text-gray-400 mt-2">
-                Saved: {new Date(item.createdAt).toLocaleString()}
-              </p>
+              <div className="p-4">
 
-              {/* DELETE */}
-              <button
-                onClick={() => handleDelete(item.id)}
-                className="mt-2 bg-red-600 px-3 py-1 rounded-lg hover:bg-red-700"
-              >
-                Delete
-              </button>
+                <div className="space-y-2">
+
+                  <p className="text-gray-300">
+
+                    📅 {new Date(item.createdAt).toLocaleDateString()}
+
+                  </p>
+
+                  <p className="text-gray-400 text-sm">
+
+                    🕒 {new Date(item.createdAt).toLocaleTimeString()}
+
+                  </p>
+
+                </div>
+
+                <button
+                  onClick={() => handleDelete(item.id)}
+                  className="mt-5 w-full bg-red-600 hover:bg-red-700 py-2 rounded-xl transition"
+                >
+                  🗑 Delete Image
+                </button>
+
+              </div>
+
             </div>
+
           ))}
+
         </div>
+
       )}
 
-      {/* IMAGE PREVIEW MODAL */}
+      {/* IMAGE PREVIEW */}
+
       {preview && (
+
         <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center"
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={() => setPreview(null)}
         >
+
           <img
             src={preview}
-            className="max-w-[90%] max-h-[90%] rounded-xl border"
+            alt="Preview"
+            className="max-w-[90%] max-h-[90%] rounded-2xl border-2 border-white"
           />
+
         </div>
+
       )}
+
     </div>
   );
 }

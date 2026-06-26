@@ -10,15 +10,15 @@ import { saveImage, getImages, deleteImage } from "./utils/indexedDB";
 
 import LoginPage from "./Components/LoginPage.jsx";
 import ForgotPassword from "./Components/ForgotPass.jsx";
-
 import {
   FaLock,
   FaImage,
   FaEnvelope,
   FaKey,
-  FaTachometerAlt,
   FaUnlock,
   FaUpload,
+  FaEye,
+  FaEyeSlash,
 } from "react-icons/fa";
 
 import SignupPage from './Components/SignupPage.jsx'
@@ -89,6 +89,7 @@ function EncodePage() {
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [savedImages, setSavedImages] = useState([]);
 useEffect(() => {
   loadImages();
@@ -148,9 +149,10 @@ function checkPasswordStrength(value){
       });
 
       await saveImage(base64);
-      await loadImages();
+await loadImages();
 
-      setStatus("Saved successfully!");
+setImageFile(null);
+setStatus("Saved successfully!");
     } catch (err) {
       setStatus("Error: " + err.message);
     } finally {
@@ -176,7 +178,7 @@ function checkPasswordStrength(value){
         Encode (Sender)
       </h1>
 
-      <Card>
+     <Card>
   <div className="space-y-4">
 
     <div>
@@ -185,7 +187,7 @@ function checkPasswordStrength(value){
       </h3>
 
       <p className="text-gray-400 text-sm mt-1">
-        Select an image from your device to hide a secret message.
+        Select an image to hide your secret message.
       </p>
     </div>
 
@@ -194,6 +196,39 @@ function checkPasswordStrength(value){
       <ImageSelector onImageSelect={setImageFile} />
 
     </div>
+
+    {/* Selected Image Preview */}
+
+    {imageFile && (
+      <div className="bg-[#232634] rounded-xl p-4 border border-green-500">
+
+        <h4 className="text-green-400 font-semibold mb-3">
+          ✅ Selected Image
+        </h4>
+
+        <img
+          src={URL.createObjectURL(imageFile)}
+          alt="Selected"
+          className="w-full max-h-64 object-contain rounded-lg"
+        />
+
+        <div className="mt-3 text-sm text-gray-300">
+
+          <p>📄 <strong>Name:</strong> {imageFile.name}</p>
+
+          <p>
+            📦 <strong>Size:</strong>{" "}
+            {(imageFile.size / 1024).toFixed(2)} KB
+          </p>
+
+          <p>
+            🖼️ <strong>Type:</strong> {imageFile.type}
+          </p>
+
+        </div>
+
+      </div>
+    )}
 
   </div>
 </Card>
@@ -246,15 +281,25 @@ function checkPasswordStrength(value){
     Password
   </div>
 
+ <div className="relative">
+
   <input
-    type="password"
+    type={showPassword ? "text" : "password"}
     placeholder="Enter password"
-    className="w-full bg-[#2a2d3a] p-3 rounded-xl"
-    onChange={(e) =>
-      checkPasswordStrength(e.target.value)
-    }
+    value={password}
+    onChange={(e) => checkPasswordStrength(e.target.value)}
+    className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl"
   />
 
+ <button
+  type="button"
+  onClick={() => setShowPassword(!showPassword)}
+  className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-purple-400 transition"
+>
+  {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+</button>
+
+</div>
   
   <p className="mt-2 text-sm">
 
@@ -306,6 +351,7 @@ const [blocked,setBlocked]=useState(false);
   const [result, setResult] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -456,17 +502,30 @@ const [blocked,setBlocked]=useState(false);
 </Card>
 <Card>
 
-<div className="flex items-center gap-2 mb-3 text-green-400 font-semibold">
-  <FaKey />
-  Password
-</div>
+  <div className="flex items-center gap-2 mb-3 text-green-400 font-semibold">
+    <FaKey />
+    Password
+  </div>
 
-<input
-  type="password"
-  placeholder="Enter password"
-  className="w-full bg-[#2a2d3a] p-3 rounded-xl outline-none"
-  onChange={(e) => setPassword(e.target.value)}
-/>
+  <div className="relative">
+
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder="Enter password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl outline-none"
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-green-400 transition"
+    >
+      {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+    </button>
+
+  </div>
 
 </Card>
 
@@ -503,6 +562,7 @@ const [blocked,setBlocked]=useState(false);
     </div>
   );
 }
+
 
 /* ---------------- APP ---------------- */
 export default function App() {
