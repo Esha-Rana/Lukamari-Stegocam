@@ -43,11 +43,11 @@ export default function Dashboard() {
 
         <div>
 
-          <h1 className="text-3xl font-bold text-blue-400">
-            📊 Dashboard
+          <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-bold text-blue-400">
+             Dashboard
           </h1>
 
-          <p className="text-gray-400 mt-1">
+          <p className="text-gray-400 mt-1 text-sm sm:text-sm md:text-base xl:text-base">
             Manage your encoded images securely.
           </p>
 
@@ -55,7 +55,7 @@ export default function Dashboard() {
 
         <button
           onClick={() => navigate("/")}
-          className="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-xl transition"
+          className="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-xl transition text-sm sm:text-sm md:text-base xl:text-base"
         >
           ← Back to Encode
         </button>
@@ -68,11 +68,11 @@ export default function Dashboard() {
 
         <div className="bg-[#1f222b] rounded-2xl border border-gray-700 p-6 shadow-lg">
 
-          <p className="text-gray-400">
-            📸 Images Stored
+          <p className="text-gray-400 text-sm sm:text-sm md:text-base xl:text-base">
+             Images Stored
           </p>
 
-          <h2 className="text-4xl font-bold text-green-400 mt-2">
+          <h2 className="text-3xl sm:text-3xl md:text-4xl xl:text-4xl font-bold text-green-400 mt-2">
             {images.length}
           </h2>
 
@@ -80,11 +80,11 @@ export default function Dashboard() {
 
         <div className="bg-[#1f222b] rounded-2xl border border-gray-700 p-6 shadow-lg">
 
-          <p className="text-gray-400">
-            💾 Storage Used
+          <p className="text-gray-400 text-sm sm:text-sm md:text-base xl:text-base">
+             Storage Used
           </p>
 
-          <h2 className="text-4xl font-bold text-blue-400 mt-2">
+          <h2 className="text-3xl sm:text-3xl md:text-4xl xl:text-4xl font-bold text-blue-400 mt-2">
             {storageSize} MB
           </h2>
 
@@ -94,15 +94,15 @@ export default function Dashboard() {
 
       {/* TITLE */}
 
-      <h2 className="text-2xl font-semibold mb-5">
-        🖼 Saved Images
+      <h2 className="text-sm sm:text-sm md:text-2xl xl:text-2xl font-semibold mb-5">
+         Saved Images
       </h2>
 
       {images.length === 0 ? (
 
         <div className="bg-[#1f222b] rounded-2xl border border-gray-700 p-10 text-center">
 
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400 text-sm sm:text-sm md:text-lg xl:text-lg">
             No saved images found.
           </p>
 

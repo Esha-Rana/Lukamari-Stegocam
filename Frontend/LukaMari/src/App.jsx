@@ -64,16 +64,17 @@ function NavBar() {
     <div className="mt-6 mb-6">
       <nav className="flex justify-center gap-3 bg-[#1d2230] border border-gray-700 rounded-2xl p-3 shadow-lg">
 
-        <Link className="px-5 py-2 rounded-xl bg-purple-600 hover:scale-105 transition" to="/">
-          🔒 Encode
+        <Link to='/' className="inline-block bg-purple-600 text-white px-5 py-2 rounded-xl text-sm sm:text-base md:text-lg xl:text-lg hover:scale-105 transition-transform duration-200">
+           Encode
         </Link>
 
-        <Link className="px-5 py-2 rounded-xl bg-green-600 hover:scale-105 transition" to="/decode">
-          🔓 Decode
+        <Link to='/decode'  className="inline-block bg-green-600 text-white px-5 py-2 rounded-xl text-sm sm:text-base md:text-lg xl:text-lg hover:scale-105 transition-transform duration-200"
+>
+           Decode
         </Link>
 
-        <Link className="px-5 py-2 rounded-xl bg-blue-600 hover:scale-105 transition" to="/dashboard">
-          📊 Dashboard
+        <Link to='/dashboard'  className="inline-block bg-blue-600 text-white px-5 py-2 rounded-xl text-sm sm:text-base md:text-lg xl:text-lg hover:scale-105 transition duration-200">
+            Dashboard
         </Link>
 
       </nav>
@@ -173,19 +174,25 @@ setStatus("Saved successfully!");
   }
 
   return (
-    <div className="flex flex-col gap-6 pb-24">
-
-      <h1 className="text-3xl font-bold text-center text-purple-400">
-        Encode (Sender)
-      </h1>
+    <div className="flex flex-col gap-6 pb-24 min-h-max w-full">
+      <div className="flex flex-row justify-center items-center" >
+      
+       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl  font-semibold text-center text-cyan-400">&lt;</h1>
+       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-purple-400">Encode </h1>
+       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl  font-semibold text-center text-cyan-400 ml-1">/&gt;</h1>
+      
+      </div>
 
      <Card>
   <div className="space-y-4">
 
     <div>
-      <h3 className="flex items-center gap-2 text-xl font-semibold text-purple-300">
-        🖼️ Upload Cover Image
+      <div className="flex gap-1 ">
+      <div className=" mt-1 text-xs border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">1</div>
+      <h3 className="flex text-xl sm:text-sm md:text-base xl:text-lg items-center gap-2 font-semibold text-purple-300">
+         Upload Cover Image
       </h3>
+      </div>
 
       <p className="text-gray-400 text-sm mt-1">
         Select an image to hide your secret message.
@@ -203,8 +210,8 @@ setStatus("Saved successfully!");
     {imageFile && (
       <div className="bg-[#232634] rounded-xl p-4 border border-green-500">
 
-        <h4 className="text-green-400 font-semibold mb-3">
-          ✅ Selected Image
+        <h4 className="text-green-400 font-semibold mb-3 text-xl sm:text-sm md:text-base xl:text-lg " >
+           Selected Image
         </h4>
 
         <img
@@ -215,15 +222,15 @@ setStatus("Saved successfully!");
 
         <div className="mt-3 text-sm text-gray-300">
 
-          <p>📄 <strong>Name:</strong> {imageFile.name}</p>
+          <p> <strong>Name:</strong> {imageFile.name}</p>
 
           <p>
-            📦 <strong>Size:</strong>{" "}
+             <strong>Size:</strong>{" "}
             {(imageFile.size / 1024).toFixed(2)} KB
           </p>
 
           <p>
-            🖼️ <strong>Type:</strong> {imageFile.type}
+            <strong>Type:</strong> {imageFile.type}
           </p>
 
         </div>
@@ -263,14 +270,14 @@ setStatus("Saved successfully!");
 
      <Card>
 
-<div className="flex items-center gap-2 mb-3 text-purple-400 font-semibold">
-  <FaEnvelope />
-  Hidden Message
+<div className="flex items-center gap-2 mb-3 text-purple-400 font-semibold  ">
+  <div className=" mt-1 text-xs  text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">2</div>
+  <div className="text-base sm:text-sm md:text-base xl:text-lg">Hidden Message</div>
 </div>
 
 <textarea
   placeholder="Enter secret message..."
-  className="w-full bg-[#2a2d3a] p-3 rounded-xl outline-none"
+  className="w-full bg-[#2a2d3a] p-3 rounded-xl outline-none text-xs sm:text-sm md:text-base lg:text-base xl:text-base"
   onChange={(e) => setMessage(e.target.value)}
 />
 
@@ -278,19 +285,19 @@ setStatus("Saved successfully!");
      <Card>
 
   <div className="flex items-center gap-2 mb-3 text-purple-400 font-semibold">
-    <FaKey />
-    Password
+      <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">3</div>
+    <div className="text-xl sm:text-xl md:text-xl xl:text-xl">Password</div>
   </div>
 
  <div className="relative">
 
- <input
-  type={showPassword ? "text" : "password"}
-  placeholder="Enter password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl"
-/>
+  <input
+    type={showPassword ? "text" : "password"}
+    placeholder="Enter password"
+    value={password}
+    onChange={(e) => checkPasswordStrength(e.target.value)}
+    className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl text-xs sm:text-sm md:text-base lg:text-base xl:text-base "
+  />
 
  <button
   type="button"
@@ -301,6 +308,20 @@ setStatus("Saved successfully!");
 </button>
 
 </div>
+  
+  <p className="mt-2 text-xs sm:text-sm md:text-base lg:text-base xl:text-base">
+
+Password Strength:
+
+<span
+className={`ml-2 font-bold ${
+passwordStrength==="Weak"
+?"text-red-500"
+:passwordStrength==="Medium"
+?"text-yellow-400"
+:"text-green-400"
+}`}
+>
 
 <PasswordStrength password={password} />
 
@@ -446,13 +467,19 @@ const [blocked,setBlocked]=useState(false);
   return (
     <div className="flex flex-col gap-6 pb-24">
 
-      <h1 className="text-3xl text-green-400 text-center">Decode</h1>
+       <div className="flex flex-row justify-center items-center" >
+      
+       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-cyan-400">&lt;</h1>
+       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-green-400">Decode </h1>
+       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-cyan-400 ml-1"> /&gt;</h1>
+      
+      </div>
 
      <Card>
 
 <div className="flex items-center gap-2 mb-4 text-purple-400 font-semibold">
-  <FaImage />
-  Upload Stego Image
+    <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">1</div>
+    <div className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base">Upload Stego Image</div> 
 </div>
 
 <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-500 rounded-2xl p-8 cursor-pointer hover:border-purple-400 transition">
@@ -487,8 +514,9 @@ const [blocked,setBlocked]=useState(false);
 <Card>
 
   <div className="flex items-center gap-2 mb-3 text-green-400 font-semibold">
-    <FaKey />
-    Password
+    <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">2</div>
+
+    <div className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base">Password</div>
   </div>
 
   <div className="relative">
@@ -498,7 +526,7 @@ const [blocked,setBlocked]=useState(false);
       placeholder="Enter password"
       value={password}
       onChange={(e) => setPassword(e.target.value)}
-      className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl outline-none"
+      className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl outline-none text-xs sm:text-sm md:text-base lg:text-base xl:text-base"
     />
 
     <button
@@ -538,7 +566,7 @@ const [blocked,setBlocked]=useState(false);
 
       {result && (
         <Card>
-          <p>{result}</p>
+          <textarea className="w-full">{result}</textarea>
         </Card>
       )}
 
@@ -546,6 +574,9 @@ const [blocked,setBlocked]=useState(false);
     </div>
   );
 }
+
+
+
 
 
 /* ---------------- APP ---------------- */

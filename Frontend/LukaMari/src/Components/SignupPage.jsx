@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "../../Supabase-client.jsx";
 
 function PasswordStrength({ password }) {
   if (!password) return null;
@@ -93,13 +94,38 @@ export default function SignupPage() {
     return e;
   };
 
-  const handleSubmit = () => {
+   const handleSubmit = async() => {
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
     setLoading(true);
     setTimeout(() => { setLoading(false); setSubmitted(true); }, 1200);
-  };
+    
+    const{error}= await supabase.auth.signUp(
+      { 
+        email:form.email,
+        password:form.password,
+       options:
+        {
+          data:{
+            fullname:form.fullname
+        }}
+      })
+      
+      setLoading(false);
+      
+      if(error){
+        console.log("An error occured!",error.message)
+        return
+      }
+      if(!error){
+        Insert();
+      }
+    setSubmitted(true);
 
+  };
+  const Insert=async()=>{
+    const {error}=await supabase.from("Users").insert([form]);
+  }
   if (submitted) {
     return (
       <div className="min-h-screen w-full bg-[#16171d] flex items-center justify-center px-4">
@@ -109,8 +135,8 @@ export default function SignupPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-white">Account created!</h2>
-          <p className="mt-2 text-sm text-gray-400">Welcome, {form.fullname}.</p>
+          <h2 className="text-2xl font-bold text-white">Please check your mail for verification link.</h2>
+          <p className="mt-2 text-sm text-gray-400">Don't forget to check spams.</p>
           <button
             onClick={() => { setForm({ fullname: "", email: "", password: "", confirm: "" }); setSubmitted(false); }}
             className="mt-6 text-sm text-blue-400 hover:text-blue-300 font-medium transition-colors"
@@ -169,7 +195,7 @@ export default function SignupPage() {
 
           <p className="mt-5 text-center text-sm text-white font-extralight">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+            <Link to="/" className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
               Sign in
             </Link>
           </p>

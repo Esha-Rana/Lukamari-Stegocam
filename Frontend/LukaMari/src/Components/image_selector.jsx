@@ -15,7 +15,7 @@ export default function ImageSelector({ onImageSelect }) {
     <div className="bg-[#2a2d3a] rounded-2xl p-6 flex flex-col items-center gap-4">
 
   <p className="text-gray-300 font-medium">
-    🖼️ Select an image from your device
+     Select an image from your device
   </p>
 
   <label

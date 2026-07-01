@@ -1,8 +1,25 @@
 import '../index.css'
 import LoginPage from './LoginPage';
 import { Link,Route,Routes } from 'react-router-dom';
+import { supabase } from '../../Supabase-client';
 
 export default function ForgotPassword(){
+const [email,setEmail]=("");
+  
+function handleChange(e){
+   setEmail(e.target.value);
+   validate();
+  }
+
+  const validate = () => {
+    const e = {};
+    if (!email.trim()) e.email = "Email is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "Enter a valid email address.";
+  }
+  async function buttonClicked(){
+    const {error}= await supabase.auth.resetPasswordForEmail(email);
+  }
+
 return (
     <div className='min-h-screen w-full flex justify-center items-center'>
       <div className='w-fit bg-gray-900 flex flex-col rounded-xl p-6'>
@@ -22,13 +39,15 @@ return (
           <div className='flex flex-col mt-4'>
 
             <h3 className='text-white tracking-wider font-extralight'> E-Mail </h3>
-             <input type='email' className='border-xl border-2 border-gray-400 rounded-xl placeholder:text-gray-400 p-2' placeholder='Enter your email.'>
+             <input type='email' className='border-xl border-2 border-gray-400 rounded-xl placeholder:text-gray-400 p-2' placeholder='Enter your email.
+             ' onchange={handleChange()}
+             >
              </input>
 
            <button type='submit' className='text-white tracking-wider bg-gray-500 mt-6 rounded-lg hover:bg-gray-400 focus:ring-2 focus:ring-blue-400'>Send Link.</button>
           
             <div className='flex justify-center items-center'>
-                <Link to= '/login'className='text-white font-extralight mt-3 tracking-wider'>Back to Login.</Link>
+                <Link to= '/'className='text-white font-extralight mt-3 tracking-wider'>Back to Login.</Link>
             </div> 
             
           </div>
@@ -36,9 +55,7 @@ return (
        </div> 
       </div>
 
-      <Routes>
-        <Route path='/login' element={<LoginPage/>}></Route>
-      </Routes>
+     
 
     </div>
 );
