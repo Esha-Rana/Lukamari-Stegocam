@@ -31,8 +31,6 @@ function bitsToText(bits) {
 
     // 00000000 = null character = our end marker
     // When we see this, the message is over- message terminator yeslai bhanincha
-    if (byte === '00000000') break
-
     // parseInt(byte, 2) converts binary string to number
     // String.fromCharCode converts number to character
     text += String.fromCharCode(parseInt(byte, 2))
@@ -49,7 +47,9 @@ export function encodeMessageInPixels(imageData, message) {
 
   // Convert message to bits + add end marker
   // End marker = 16 zeros = tells decoder "message ends here"
-  const bits = textToBits(message) + '0000000000000000'
+ const messageBits = textToBits(message)
+const lengthBits = message.length.toString(2).padStart(32, '0')
+const bits = lengthBits + messageBits
 
   // Check if image has enough pixels to hold the message
   // Each pixel holds 1 bit, total pixels = pixels.length / 4
@@ -89,17 +89,17 @@ export function decodeMessageFromPixels(imageData) {
   const pixels = imageData.data
   let bits = ''
 
+  // Read all bits from image
   for (let i = 0; i < pixels.length; i += 4) {
-
-   
     const bit = (pixels[i] & 1).toString()
     bits += bit
-
-    if (bits.length % 8 === 0 && bits.length >= 16) {
-      const lastTwoBits = bits.slice(-16)
-      if (lastTwoBits === '0000000000000000') break
-    }
   }
 
-  return bitsToText(bits)
+  // First 32 bits store message length
+  const length = parseInt(bits.slice(0, 32), 2)
+
+  // Read only the actual message bits
+  const messageBits = bits.slice(32, 32 + (length * 8))
+
+  return bitsToText(messageBits)
 }
