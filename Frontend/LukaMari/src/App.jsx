@@ -1,9 +1,9 @@
 import { encryptMessage } from "./utils/crypto";
 import { decryptMessage } from "./utils/crypto";
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link,Navigate } from 'react-router-dom'
 import './index.css'
 import ImageSelector from './Components/image_selector.jsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import "./Components/LoginPage.jsx"
 import LoginPage from './Components/LoginPage.jsx'
 import { loadImageToCanvas, convertToGrayscale, exportCanvasAsPNG, downloadBlob } from './utils/canvas'
@@ -11,6 +11,7 @@ import { encodeMessageInPixels, decodeMessageFromPixels } from './utils/stegno'
 import ForgotPassword from "./Components/ForgotPass.jsx";
 import SignupPage from './Components/SignupPage.jsx'
 import ProfilePage from './Components/ProfilePage.jsx'
+import {supabase} from '../Supabase-client.jsx'
 
 function NavBar(){
   return(
@@ -36,7 +37,7 @@ function NavBar(){
       );
 }
 
-function EncodePage() {
+export function EncodePage() {
 
 
   const [imageFile, setImageFile] = useState(null)   // the image user uploaded
@@ -361,21 +362,48 @@ setStatus(' Message decrypted successfully!')
 }
 
 
+
+
+
 function App() {
+  const [session,setSession]=useState(null);
+  const [loading,setLoading]=useState(true);
+  
+
+  useEffect(
+    ()=>{
+    async function FetchSession(){
+      const {data,error} = await supabase.auth.getSession();
+      setSession(data.session);
+      setLoading(false);
+      console.log(data.session);
+      if(error){
+        console.log("Error",error.message);
+      }
+      
+    }  
+   FetchSession()}  ,[]
+  );
+      if(loading) {
+  return (
+    <div className="text-white">
+      Loading...
+    </div>
+  );
+}
+
   return (
     <div className='flex justify-center items-start min-h-screen bg-[#16171d]'>
+      <div>
 
-
-      
-
+      </div>
       <Routes>
-        <Route path='/' element={<EncodePage />} />
-        <Route path='/decode' element={<DecodePage />} />
-        <Route path='/login' element={<LoginPage/>}></Route>
-        <Route path='*' element={<h1>404 not found</h1>} />
-        <Route path="/forgotpass" element={<ForgotPassword/>}/>
+        <Route path='/' element={session?<EncodePage/>:<LoginPage/>} />
+        <Route path='/decode' element={session?<DecodePage />:<Navigate to="/"/>} />
+        <Route path='*' element={<h1 className=" text-white text-4xl">404 not found</h1>} />
+        <Route path="/forgotpass" element={session?<Navigate to="/"/>:<ForgotPassword/>}/>
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={session?<ProfilePage />:<Navigate to="/"/>} />
       </Routes>
 
     </div>

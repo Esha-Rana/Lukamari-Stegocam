@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate,Route,Routes,useNavigate } from "react-router-dom";
+import '../App.jsx'
+import "./SignupPage.jsx"
 
 export default function ProfilePage() {
-  const [form, setForm] = useState({ displayname: "Shirish Tamrakar", email: "shirish@ku.edu.np" });
+  const [form, setForm] = useState({ displayname: "", email: "" });
   const [saved, setSaved] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
+  const navigate=useNavigate()
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setSaved(false);
@@ -31,8 +33,8 @@ export default function ProfilePage() {
         <span className="text-white font-extralight text-2xl tracking-widest">
           luka<span className="text-blue-400 font-semibold">MARI</span>
         </span>
-      </div>
-
+      </div> 
+      
       {/* Card */}
       <div className="flex-1 flex items-center justify-center px-4 py-6 sm:py-10">
         <div className="w-full max-w-sm sm:max-w-md bg-black rounded-2xl p-5 sm:p-8 shadow-2xl">
@@ -73,7 +75,6 @@ export default function ProfilePage() {
                 name="email"
                 type="email"
                 value={form.email}
-                onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               />
             </div>
@@ -114,7 +115,7 @@ export default function ProfilePage() {
             )}
           </div>
 
-          <p className="mt-6 text-center text-sm text-gray-500">
+           <p className="mt-6 text-center text-sm text-gray-500">
             <Link to="/" className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
               ← Back to app
             </Link>

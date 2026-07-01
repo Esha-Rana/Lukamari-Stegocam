@@ -2,10 +2,13 @@ import { useState } from "react";
 import "../index.css";
 import { Link, Route, Routes } from 'react-router-dom';
 import ForgotPassword from "./ForgotPass";
+import { supabase } from "../../Supabase-client";
+import EncodePage from "../App.jsx"
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const [showPassword,setshowPassword]=useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +31,8 @@ export default function LoginPage() {
     if (!formData.password) {
       newErrors.password = "Password is required.";
       isValid = false;
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters.";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters.";
       isValid = false;
     }
 
@@ -37,10 +40,21 @@ export default function LoginPage() {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (!validate()) return;
-    console.log("Logging in with:", formData);
+    const {error}= await supabase.auth.signInWithPassword({
+      email:formData.email,
+      password:formData.password
+    })
+
+    if(error){
+      alert("Error Logging in.",error.message);
+    }
+    if(!error){
+    console.log("Signed In")
+    window.location.reload();
+    }
   };
 
   return (
@@ -76,15 +90,22 @@ export default function LoginPage() {
             <div>
               <label className="flex items-start mt-2 ml-3 flex-col gap-2 text-white placeholder:text-gray-400">
                 Password
+               <div className="relative w-full">
                 <input
-                  type="password"
+                  type={showPassword? "text":"password"}
                   name="password"
                   placeholder="********"
                   value={formData.password}
                   onChange={handleChange}
                   className="border-2 border-gray-400 p-1.5 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-700 w-full flex bg-gray-800"
                 />
+                <button type="button" onClick={() => setshowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
+                    Show
+
+                </button></div>
               </label>
+
               {errors.password && (
                 <p className="text-red-400 text-sm ml-3 mt-1">{errors.password}</p>
               )}
@@ -119,9 +140,7 @@ export default function LoginPage() {
         <button type="button" className="text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400">Github</button>
       </div>
 
-      <Routes>
-        <Route path="/forgotpass" element={<ForgotPassword />} />
-      </Routes>
+      
     </div>
   );
 }
