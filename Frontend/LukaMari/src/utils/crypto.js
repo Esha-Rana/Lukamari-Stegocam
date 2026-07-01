@@ -76,7 +76,7 @@ export async function decryptMessage(data, password) {
     );
 
     return fromBytes(decrypted);
-  } catch (e) {
-    return "❌ Wrong password";
-  }
+  }catch (e) {
+  throw new Error("Wrong password");
+}
 }
