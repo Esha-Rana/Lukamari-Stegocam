@@ -82,19 +82,11 @@ function NavBar() {
   );
 }
 
-/* ---------------- ENCODE ---------------- */
-function EncodePage() {
-  const [imageFile, setImageFile] = useState(null);
-  const [message, setMessage] = useState("");
-  const [password, setPassword] = useState("");
-  const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [savedImages, setSavedImages] = useState([]);
-useEffect(() => {
-  loadImages();
-}, []);
-
+/* ---------------- PASSWORD STRENGTH ----------------
+   Moved to module scope. Defining a component inside
+   another component's render body causes React to treat
+   it as a brand-new component type on every render, which
+   forces an unnecessary remount instead of a normal update. */
 function PasswordStrength({ password }) {
   if (!password) return null;
   let score = 0;
@@ -120,6 +112,21 @@ function PasswordStrength({ password }) {
     </div>
   );
 }
+
+/* ---------------- ENCODE ---------------- */
+function EncodePage() {
+  const [imageFile, setImageFile] = useState(null);
+  const [message, setMessage] = useState("");
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [savedImages, setSavedImages] = useState([]);
+
+  useEffect(() => {
+    loadImages();
+  }, []);
+
   async function loadImages() {
     const imgs = await getImages();
     setSavedImages(Array.isArray(imgs) ? imgs : []);
@@ -151,10 +158,10 @@ function PasswordStrength({ password }) {
       });
 
       await saveImage(base64);
-await loadImages();
+      await loadImages();
 
-setImageFile(null);
-setStatus("Saved successfully!");
+      setImageFile(null);
+      setStatus("Saved successfully!");
     } catch (err) {
       setStatus("Error: " + err.message);
     } finally {
@@ -163,7 +170,13 @@ setStatus("Saved successfully!");
   }
 
   async function handleReuse(img) {
-    setImageFile(dataURLtoBlob(img.image));
+    const blob = dataURLtoBlob(img.image);
+    // dataURLtoBlob returns a plain Blob, which has no `.name`.
+    // Wrap it in a File so `imageFile.name` renders correctly below.
+    const file = new File([blob], `reused-image-${img.id}.png`, {
+      type: blob.type,
+    });
+    setImageFile(file);
     setStatus("Image selected for reuse");
   }
 
@@ -176,70 +189,62 @@ setStatus("Saved successfully!");
   return (
     <div className="flex flex-col gap-6 pb-24 min-h-max w-full">
       <div className="flex flex-row justify-center items-center" >
-      
-       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl  font-semibold text-center text-cyan-400">&lt;</h1>
-       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-purple-400">Encode </h1>
-       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl  font-semibold text-center text-cyan-400 ml-1">/&gt;</h1>
-      
+
+        <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl  font-semibold text-center text-cyan-400">&lt;</h1>
+        <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-purple-400">Encode </h1>
+        <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl  font-semibold text-center text-cyan-400 ml-1">/&gt;</h1>
+
       </div>
 
-     <Card>
-  <div className="space-y-4">
+      <Card>
+        <div className="space-y-4">
 
-    <div>
-      <div className="flex gap-1 ">
-      <div className=" mt-1 text-xs border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">1</div>
-      <h3 className="flex text-xl sm:text-sm md:text-base xl:text-lg items-center gap-2 font-semibold text-purple-300">
-         Upload Cover Image
-      </h3>
-      </div>
+          <div>
+            <div className="flex gap-1 ">
+              <div className=" mt-1 text-xs border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">1</div>
+              <h3 className="flex text-xl sm:text-sm md:text-base xl:text-lg items-center gap-2 font-semibold text-purple-300">
+                Upload Cover Image
+              </h3>
+            </div>
 
-      <p className="text-gray-400 text-sm mt-1">
-        Select an image to hide your secret message.
-      </p>
-    </div>
+            <p className="text-gray-400 text-sm mt-1">
+              Select an image to hide your secret message.
+            </p>
+          </div>
 
-    <div className="bg-[#2a2d3a] border border-gray-600 rounded-2xl p-5">
+          <div className="bg-[#2a2d3a] border border-gray-600 rounded-2xl p-5">
+            <ImageSelector onImageSelect={setImageFile} />
+          </div>
 
-      <ImageSelector onImageSelect={setImageFile} />
+          {/* Selected Image Preview */}
+          {imageFile && (
+            <div className="bg-[#232634] rounded-xl p-4 border border-green-500">
+              <h4 className="text-green-400 font-semibold mb-3 text-xl sm:text-sm md:text-base xl:text-lg " >
+                Selected Image
+              </h4>
 
-    </div>
+              <img
+                src={URL.createObjectURL(imageFile)}
+                alt="Selected"
+                className="w-full max-h-64 object-contain rounded-lg"
+              />
 
-    {/* Selected Image Preview */}
-
-    {imageFile && (
-      <div className="bg-[#232634] rounded-xl p-4 border border-green-500">
-
-        <h4 className="text-green-400 font-semibold mb-3 text-xl sm:text-sm md:text-base xl:text-lg " >
-           Selected Image
-        </h4>
-
-        <img
-          src={URL.createObjectURL(imageFile)}
-          alt="Selected"
-          className="w-full max-h-64 object-contain rounded-lg"
-        />
-
-        <div className="mt-3 text-sm text-gray-300">
-
-          <p> <strong>Name:</strong> {imageFile.name}</p>
-
-          <p>
-             <strong>Size:</strong>{" "}
-            {(imageFile.size / 1024).toFixed(2)} KB
-          </p>
-
-          <p>
-            <strong>Type:</strong> {imageFile.type}
-          </p>
+              <div className="mt-3 text-sm text-gray-300">
+                <p> <strong>Name:</strong> {imageFile.name}</p>
+                <p>
+                  <strong>Size:</strong>{" "}
+                  {(imageFile.size / 1024).toFixed(2)} KB
+                </p>
+                <p>
+                  <strong>Type:</strong> {imageFile.type}
+                </p>
+              </div>
+            </div>
+          )}
 
         </div>
+      </Card>
 
-      </div>
-    )}
-
-  </div>
-</Card>
       {/* SAVED IMAGES */}
       {savedImages.length > 0 && (
         <Card>
@@ -248,99 +253,79 @@ setStatus("Saved successfully!");
           <div className="grid grid-cols-3 gap-3">
             {savedImages.map((img) => (
               <div key={img.id} className="relative group">
-
                 <img
                   src={img.image}
                   onClick={() => handleReuse(img)}
                   className="rounded-lg cursor-pointer hover:scale-105 transition"
                 />
-
                 <button
                   onClick={() => handleDelete(img.id)}
                   className="absolute top-1 right-1 bg-red-600 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100"
                 >
                   X
                 </button>
-
               </div>
             ))}
           </div>
         </Card>
       )}
 
-     <Card>
+      <Card>
+        <div className="flex items-center gap-2 mb-3 text-purple-400 font-semibold  ">
+          <div className=" mt-1 text-xs  text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">2</div>
+          <div className="text-base sm:text-sm md:text-base xl:text-lg">Hidden Message</div>
+        </div>
 
-<div className="flex items-center gap-2 mb-3 text-purple-400 font-semibold  ">
-  <div className=" mt-1 text-xs  text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">2</div>
-  <div className="text-base sm:text-sm md:text-base xl:text-lg">Hidden Message</div>
-</div>
+        <textarea
+          placeholder="Enter secret message..."
+          className="w-full bg-[#2a2d3a] p-3 rounded-xl outline-none text-xs sm:text-sm md:text-base lg:text-base xl:text-base"
+          onChange={(e) => setMessage(e.target.value)}
+        />
+      </Card>
 
-<textarea
-  placeholder="Enter secret message..."
-  className="w-full bg-[#2a2d3a] p-3 rounded-xl outline-none text-xs sm:text-sm md:text-base lg:text-base xl:text-base"
-  onChange={(e) => setMessage(e.target.value)}
-/>
+      <Card>
+        <div className="flex items-center gap-2 mb-3 text-purple-400 font-semibold">
+          <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">3</div>
+          <div className="text-xl sm:text-xl md:text-xl xl:text-xl">Password</div>
+        </div>
 
-</Card>
-     <Card>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl text-xs sm:text-sm md:text-base lg:text-base xl:text-base "
+          />
 
-  <div className="flex items-center gap-2 mb-3 text-purple-400 font-semibold">
-      <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">3</div>
-    <div className="text-xl sm:text-xl md:text-xl xl:text-xl">Password</div>
-  </div>
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-purple-400 transition"
+          >
+            {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+          </button>
+        </div>
 
- <div className="relative">
+        {/* Was previously a <p> wrapping the button/NavBar and never closed —
+            that's invalid HTML nesting (block elements inside <p>) and, more
+            importantly, left the JSX tree unbalanced. Now a self-contained div. */}
+        <div className="mt-2 text-xs sm:text-sm md:text-base lg:text-base xl:text-base">
+          Password Strength:
+          <PasswordStrength password={password} />
+        </div>
 
-  <input
-    type={showPassword ? "text" : "password"}
-    placeholder="Enter password"
-    value={password}
-    onChange={(e) => checkPasswordStrength(e.target.value)}
-    className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl text-xs sm:text-sm md:text-base lg:text-base xl:text-base "
-  />
+        <button
+          onClick={handleEncode}
+          disabled={loading}
+          className="w-full mt-4 flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 p-3 rounded-xl transition disabled:opacity-50"
+        >
+          <FaLock />
+          {loading ? "Processing..." : "Encrypt & Hide Message"}
+        </button>
 
- <button
-  type="button"
-  onClick={() => setShowPassword(!showPassword)}
-  className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-purple-400 transition"
->
-  {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-</button>
-
-</div>
-  
-  <p className="mt-2 text-xs sm:text-sm md:text-base lg:text-base xl:text-base">
-
-Password Strength:
-
-<span
-className={`ml-2 font-bold ${
-passwordStrength==="Weak"
-?"text-red-500"
-:passwordStrength==="Medium"
-?"text-yellow-400"
-:"text-green-400"
-}`}
->
-
-<PasswordStrength password={password} />
-
-</Card>
-
-    <button
-  onClick={handleEncode}
-  disabled={loading}
-  className="flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 p-3 rounded-xl transition"
->
-  <FaLock />
-
-  {loading
-    ? "Processing..."
-    : "Encrypt & Hide Message"}
-
-</button>
-
-      {status && <p className="text-center text-gray-400">{status}</p>}
+        {status && <p className="text-center text-gray-400 mt-3">{status}</p>}
+      </Card>
 
       <NavBar />
     </div>
@@ -350,8 +335,8 @@ passwordStrength==="Weak"
 /* ---------------- DECODE ---------------- */
 function DecodePage() {
   const [timeLeft, setTimeLeft] = useState(0);
-  const [attempts,setAttempts]=useState(0);
-const [blocked,setBlocked]=useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [blocked, setBlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [result, setResult] = useState("");
   const [status, setStatus] = useState("");
@@ -360,213 +345,140 @@ const [blocked,setBlocked]=useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
+    let timer;
 
-  let timer;
+    if (blocked && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+    }
 
-  if (blocked && timeLeft > 0) {
+    if (blocked && timeLeft === 0 && attempts >= 3) {
+      setBlocked(false);
+      setAttempts(0);
+      setStatus("✅ You can try again.");
+    }
 
-    timer = setInterval(() => {
-
-      setTimeLeft((prev) => prev - 1);
-
-    }, 1000);
-
-  }
-
-  if (blocked && timeLeft === 0 && attempts >= 3) {
-
-    setBlocked(false);
-
-    setAttempts(0);
-
-    setStatus("✅ You can try again.");
-
-  }
-
-  return () => clearInterval(timer);
-
-}, [blocked, timeLeft, attempts]);
-
+    return () => clearInterval(timer);
+  }, [blocked, timeLeft, attempts]);
 
   async function handleDecode() {
+    if (blocked) {
+      return setStatus("Too many failed attempts.");
+    }
 
-  if (blocked) {
-    return setStatus(
-      "Too many failed attempts."
-    );
+    if (!selectedImage) return setStatus("Select image");
+    if (!password) return setStatus("Enter password");
+
+    try {
+      setLoading(true);
+
+      const { imageData } = await loadImageToCanvas(selectedImage);
+      const extracted = decodeMessageFromPixels(imageData);
+      const data = JSON.parse(extracted.trim());
+      const decrypted = await decryptMessage(data, password);
+
+      setResult(decrypted);
+      setAttempts(0);
+      setBlocked(false);
+      setStatus("Success!");
+    } catch (err) {
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+
+      if (newAttempts >= 3) {
+        setBlocked(true);
+        setTimeLeft(30);
+        setStatus("🚫 Too many attempts. Locked for 30 seconds.");
+      } else {
+        setStatus(`❌ Wrong password. ${3 - newAttempts} attempts left.`);
+      }
+    } finally {
+      setLoading(false);
+    }
   }
-
-  if (!selectedImage)
-    return setStatus("Select image");
-
-  if (!password)
-    return setStatus("Enter password");
-
-  try {
-
-    setLoading(true);
-
-    const { imageData } =
-      await loadImageToCanvas(selectedImage);
-
-    const extracted =
-      decodeMessageFromPixels(imageData);
-
-    const data =
-      JSON.parse(extracted.trim());
-
-    const decrypted =
-      await decryptMessage(data, password);
-
-    setResult(decrypted);
-
-    setAttempts(0);
-
-    setBlocked(false);
-
-
-    setStatus("Success!");
-
-  }
-
- catch (err) {
-
-  const newAttempts = attempts + 1;
-
-  setAttempts(newAttempts);
-
-  if (newAttempts >= 3) {
-
-    setBlocked(true);
-
-    setTimeLeft(30);
-
-    setStatus(
-      "🚫 Too many attempts. Locked for 30 seconds."
-    );
-
-  } else {
-
-    setStatus(
-      `❌ Wrong password. ${3 - newAttempts} attempts left.`
-    );
-
-  }
-
-}
-
-
-  finally {
-
-    setLoading(false);
-
-  }
-
-}
 
   return (
     <div className="flex flex-col gap-6 pb-24">
 
-       <div className="flex flex-row justify-center items-center" >
-      
-       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-cyan-400">&lt;</h1>
-       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-green-400">Decode </h1>
-       <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-cyan-400 ml-1"> /&gt;</h1>
-      
+      <div className="flex flex-row justify-center items-center" >
+        <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-cyan-400">&lt;</h1>
+        <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-green-400">Decode </h1>
+        <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-semibold text-center text-cyan-400 ml-1"> /&gt;</h1>
       </div>
 
-     <Card>
+      <Card>
+        <div className="flex items-center gap-2 mb-4 text-purple-400 font-semibold">
+          <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">1</div>
+          <div className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base">Upload Stego Image</div>
+        </div>
 
-<div className="flex items-center gap-2 mb-4 text-purple-400 font-semibold">
-    <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">1</div>
-    <div className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base">Upload Stego Image</div> 
-</div>
+        <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-500 rounded-2xl p-8 cursor-pointer hover:border-purple-400 transition">
+          <FaUpload size={30} />
+          <p className="mt-3 text-gray-300">
+            Select an image from your device
+          </p>
+          <input
+            type="file"
+            className="hidden"
+            onChange={(e) => setSelectedImage(e.target.files[0])}
+          />
+        </label>
 
-<label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-500 rounded-2xl p-8 cursor-pointer hover:border-purple-400 transition">
+        {selectedImage && (
+          <p className="mt-3 text-green-400">
+            Selected: {selectedImage.name}
+          </p>
+        )}
+      </Card>
 
-  <FaUpload size={30} />
+      <Card>
+        <div className="flex items-center gap-2 mb-3 text-green-400 font-semibold">
+          <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">2</div>
+          <div className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base">Password</div>
+        </div>
 
-  <p className="mt-3 text-gray-300">
-    Select an image from your device
-  </p>
-
-  <input
-    type="file"
-    className="hidden"
-    onChange={(e) =>
-      setSelectedImage(e.target.files[0])
-    }
-  />
-
-</label>
-
-{selectedImage && (
-
-<p className="mt-3 text-green-400">
-
-  Selected: {selectedImage.name}
-
-</p>
-
-)}
-
-</Card>
-<Card>
-
-  <div className="flex items-center gap-2 mb-3 text-green-400 font-semibold">
-    <div className=" mt-1 text-xs text-gray-300 border-2 flex justify-center items-center border-gray-300 rounded-full h-5 w-5 ">2</div>
-
-    <div className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base">Password</div>
-  </div>
-
-  <div className="relative">
-
-    <input
-      type={showPassword ? "text" : "password"}
-      placeholder="Enter password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl outline-none text-xs sm:text-sm md:text-base lg:text-base xl:text-base"
-    />
-
-    <button
-      type="button"
-      onClick={() => setShowPassword(!showPassword)}
-      className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-green-400 transition"
-    >
-      {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-    </button>
-
-  </div>
-
-</Card>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full bg-[#2a2d3a] p-3 pr-12 rounded-xl outline-none text-xs sm:text-sm md:text-base lg:text-base xl:text-base"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-green-400 transition"
+          >
+            {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+          </button>
+        </div>
+      </Card>
 
       <button
         onClick={handleDecode}
         disabled={loading || blocked}
-        className="bg-green-600 p-3 rounded-xl"
+        className="bg-green-600 p-3 rounded-xl disabled:opacity-50"
       >
         {loading ? "Processing..." : "Decode"}
       </button>
+
       {attempts > 0 && !blocked && (
-  <p className="text-yellow-400 text-center">
-    Attempts left: {3 - attempts}
-  </p>
-)}
+        <p className="text-yellow-400 text-center">
+          Attempts left: {3 - attempts}
+        </p>
+      )}
 
-{blocked && (
-
-  <p className="text-red-500 text-center font-bold">
-
-    🚫 Try again in {timeLeft} seconds
-
-  </p>
-
-)}
+      {blocked && (
+        <p className="text-red-500 text-center font-bold">
+          🚫 Try again in {timeLeft} seconds
+        </p>
+      )}
 
       {result && (
         <Card>
-          <textarea className="w-full">{result}</textarea>
+          <textarea className="w-full" readOnly value={result} />
         </Card>
       )}
 
@@ -574,10 +486,6 @@ const [blocked,setBlocked]=useState(false);
     </div>
   );
 }
-
-
-
-
 
 /* ---------------- APP ---------------- */
 export default function App() {
