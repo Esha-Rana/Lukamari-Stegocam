@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase/client';
 import { useAuth } from '../context/AuthContext';
 import { useWebRTC } from '../hooks/useWebRTC';
+import { deleteTransferBlob, getTransferBlob } from '../utils/indexedDB';
 import Avatar from '../Components/ui/Avatar';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 
@@ -68,18 +69,18 @@ export default function ActiveTransferPage() {
     if (hasSent.current) return;
     hasSent.current = true;
 
-    const base64 = sessionStorage.getItem(`stego_${roomId}`);
-    if (!base64) return;
-
-    fetch(base64)
-      .then(r => r.blob())
-      .then(blob => sendBlob(blob))
+    getTransferBlob(roomId)
+      .then(blob => {
+        if (!blob) throw new Error('The image prepared for transfer is unavailable. Please encode it again.');
+        return sendBlob(blob);
+      })
       .catch(console.error);
   }, [status, role, roomId, sendBlob]);
 
   /* ── Update Supabase status on state changes ── */
   useEffect(() => {
-    if (!meta?.id) return;
+    const metadataId = meta?.id ?? metaId;
+    if (!metadataId) return;
 
     const updates = {
       'ice-established': { status: 'connecting' },
@@ -91,9 +92,9 @@ export default function ActiveTransferPage() {
 
     const update = updates[status];
     if (update) {
-      supabase.from('message_metadata').update(update).eq('id', meta.id).then(() => {});
+      supabase.from('message_metadata').update(update).eq('id', metadataId).then(() => {});
     }
-  }, [status, meta?.id, role]);
+  }, [status, meta?.id, metaId, role]);
 
   /* ── Receiver: navigate to decode after transfer ── */
   useEffect(() => {
@@ -109,14 +110,15 @@ export default function ActiveTransferPage() {
   /* ── Sender: navigate to message details after transfer ── */
   useEffect(() => {
     if (role === 'sender' && status === 'complete' && metaId) {
-      // Clean up sessionStorage
-      sessionStorage.removeItem(`stego_${roomId}`);
+      // The sender's temporary image is no longer needed after transfer.
+      deleteTransferBlob(roomId).catch(console.error);
       setTimeout(() => navigate(`/message/${metaId}`), 1500);
     }
   }, [status, role, roomId, metaId, navigate]);
 
   function handleCancel() {
     cancel();
+    if (role === 'sender') deleteTransferBlob(roomId).catch(console.error);
     if (meta?.id) {
       supabase.from('message_metadata').update({ status: 'pending' }).eq('id', meta.id);
     }
