@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { encryptMessage } from '../utils/crypto';
 import { loadImageToCanvas, exportCanvasAsPNG } from '../utils/canvas';
 import { encodeMessageInPixels } from '../utils/stegno';
+import { deleteTransferBlob, saveTransferBlob } from '../utils/indexedDB';
 import PasswordStrength from '../Components/ui/PasswordStrength';
 import Avatar from '../Components/ui/Avatar';
 import {
@@ -79,6 +80,7 @@ export default function NewSecretPage() {
 
     setEncoding(true);
     setError('');
+    let roomId;
 
     try {
       // 1. Encrypt message
@@ -91,11 +93,11 @@ export default function NewSecretPage() {
       const stegoBlob = await exportCanvasAsPNG(canvas, ctx, encoded);
 
       // 3. Generate room ID
-      const roomId = crypto.randomUUID();
+      roomId = crypto.randomUUID();
 
-      // 4. Store stego blob in sessionStorage (base64) — never goes to server
-      const base64 = await blobToBase64(stegoBlob);
-      sessionStorage.setItem(`stego_${roomId}`, base64);
+      // 4. Keep the raw image locally until WebRTC sends it. IndexedDB avoids
+      // sessionStorage's small string quota and Base64 size overhead.
+      await saveTransferBlob(roomId, stegoBlob);
 
       // 5. Insert metadata into Supabase (no image, no ciphertext)
       const { data: meta, error: insertErr } = await supabase
@@ -114,6 +116,7 @@ export default function NewSecretPage() {
       // 6. Navigate to Active Transfer screen
       navigate(`/transfer/${roomId}`, { state: { metaId: meta.id, role: 'sender' } });
     } catch (err) {
+      if (roomId) deleteTransferBlob(roomId).catch(() => {});
       console.error(err);
       setError(err.message ?? 'Encoding failed. Please try again.');
     } finally {
@@ -322,13 +325,4 @@ export default function NewSecretPage() {
       </div>
     </div>
   );
-}
-
-function blobToBase64(blob) {
-  return new Promise((res, rej) => {
-    const reader = new FileReader();
-    reader.onload = () => res(reader.result);
-    reader.onerror = rej;
-    reader.readAsDataURL(blob);
-  });
 }

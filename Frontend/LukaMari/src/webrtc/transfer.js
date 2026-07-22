@@ -1,4 +1,5 @@
 const CHUNK_SIZE = 16384;
+const TRANSFER_COMPLETE_ACK = 'TRANSFER_COMPLETE_ACK';
 
 export class TransferManager {
   constructor({ onProgress, onComplete, onStateChange }) {
@@ -38,7 +39,11 @@ export class TransferManager {
           const blob = new Blob(this.chunks, { type: 'image/png' });
           this.onProgress(100);
           this.onComplete(blob);
+          dc.send(TRANSFER_COMPLETE_ACK);
           this.chunks = [];
+        } else if (data === TRANSFER_COMPLETE_ACK) {
+          console.log('[Transfer] Receiver confirmed the image');
+          this.onStateChange('complete');
         }
       } else {
         this.chunks.push(data);
