@@ -9,6 +9,7 @@ export function useWebRTC(roomId, role) {
   const transferRef = useRef(null);
   const dcRef       = useRef(null);
   const hasCreatedOffer = useRef(false);
+  const transferCompleteRef = useRef(false);
 
   const [status, setStatus]           = useState('idle');
   const [progress, setProgress]       = useState(0);
@@ -18,16 +19,25 @@ export function useWebRTC(roomId, role) {
     if (!roomId || !role) return;
 
     console.log(`[Hook] Starting — role: ${role}, room: ${roomId}`);
+    transferCompleteRef.current = false;
     setStatus('connecting');
+
+    const setTransferStatus = (nextStatus) => {
+      // ICE may disconnect normally after the file has arrived. Do not let
+      // that teardown overwrite the terminal completed state with an error.
+      if (transferCompleteRef.current && nextStatus !== 'complete') return;
+      if (nextStatus === 'complete') transferCompleteRef.current = true;
+      setStatus(nextStatus);
+    };
 
     // ── Transfer manager ─────────────────────────────────
     const transfer = new TransferManager({
       onProgress: (pct) => setProgress(pct),
       onComplete: (blob) => {
         setReceivedBlob(blob);
-        setStatus('complete');
+        setTransferStatus('complete');
       },
-      onStateChange: (s) => setStatus(s),
+      onStateChange: setTransferStatus,
     });
     transferRef.current = transfer;
 
@@ -38,7 +48,7 @@ export function useWebRTC(roomId, role) {
         dcRef.current = dc;
         transfer.attachChannel(dc);
       },
-      onStateChange: (s) => setStatus(s),
+      onStateChange: setTransferStatus,
     });
     peerRef.current = peer;
 
@@ -77,7 +87,7 @@ export function useWebRTC(roomId, role) {
       console.log(`[Hook] Joined room as ${role}`);
     }).catch((e) => {
       console.error('[Hook] Failed to connect to signaling', e);
-      setStatus('error');
+      setTransferStatus('error');
     });
 
     // ── Cleanup ───────────────────────────────────────────
@@ -105,6 +115,7 @@ export function useWebRTC(roomId, role) {
     signalingRef.current?.disconnect();
     peerRef.current?.destroy();
     transferRef.current?.reset();
+    transferCompleteRef.current = false;
     setStatus('idle');
     setProgress(0);
   }, []);

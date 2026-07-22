@@ -55,7 +55,7 @@ export default function DashboardPage() {
     const [inboxRes, sentRes, deliveredRes, readRes] = await Promise.all([
       supabase.from('message_metadata').select('id', { count: 'exact', head: true }).eq('receiver_id', user.id),
       supabase.from('message_metadata').select('id', { count: 'exact', head: true }).eq('sender_id', user.id),
-      supabase.from('message_metadata').select('id', { count: 'exact', head: true }).eq('receiver_id', user.id).eq('status', 'opened'),
+      supabase.from('message_metadata').select('id', { count: 'exact', head: true }).eq('receiver_id', user.id).not('delivered_at', 'is', null),
       supabase.from('message_metadata').select('id', { count: 'exact', head: true }).eq('receiver_id', user.id).eq('status', 'completed'),
     ]);
 

@@ -1,6 +1,7 @@
 const DB_NAME = "lukamariDB";
 const STORE_NAME = "images";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
+const TRANSFER_STORE_NAME = "transferBlobs";
 
 // ---------- OPEN DB ----------
 function openDB() {
@@ -15,6 +16,10 @@ function openDB() {
           keyPath: "id",
           autoIncrement: true
         });
+      }
+
+      if (!db.objectStoreNames.contains(TRANSFER_STORE_NAME)) {
+        db.createObjectStore(TRANSFER_STORE_NAME, { keyPath: "roomId" });
       }
     };
 
@@ -108,5 +113,44 @@ export async function clearImages() {
     };
 
     request.onerror = (err) => reject(err);
+  });
+}
+
+// ---------- TEMPORARY TRANSFER BLOBS ----------
+// IndexedDB stores Blob data directly, unlike sessionStorage which has a small
+// string-only quota and requires an even larger Base64 representation.
+export async function saveTransferBlob(roomId, blob) {
+  const db = await openDB();
+
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(TRANSFER_STORE_NAME, "readwrite");
+    tx.objectStore(TRANSFER_STORE_NAME).put({ roomId, blob, createdAt: Date.now() });
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error);
+  });
+}
+
+export async function getTransferBlob(roomId) {
+  const db = await openDB();
+
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(TRANSFER_STORE_NAME, "readonly")
+      .objectStore(TRANSFER_STORE_NAME)
+      .get(roomId);
+    request.onsuccess = () => resolve(request.result?.blob ?? null);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+export async function deleteTransferBlob(roomId) {
+  const db = await openDB();
+
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(TRANSFER_STORE_NAME, "readwrite");
+    tx.objectStore(TRANSFER_STORE_NAME).delete(roomId);
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error);
   });
 }
