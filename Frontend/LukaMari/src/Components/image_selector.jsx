@@ -21,7 +21,7 @@ export default function ImageSelector({ onImageSelect }) {
   <label
     className="cursor-pointer bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-xl font-semibold transition"
   >
-    📂 Choose Image
+     Choose Image
 
     <input
       type="file"

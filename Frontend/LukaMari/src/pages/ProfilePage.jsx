@@ -125,20 +125,6 @@ export default function ProfilePage() {
         ))}
       </div>
 
-      {/* Account status */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-5 mb-5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center">
-            <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-          </div>
-          <div>
-            <p className="text-white text-sm font-medium">Account Status</p>
-            <p className="text-gray-500 text-xs">Your account is active and verified</p>
-          </div>
-        </div>
-        <span className="text-green-400 text-sm font-semibold">● Active</span>
-      </div>
-
       {/* Edit form */}
       <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
         <h2 className="text-white font-semibold text-sm">Edit Profile</h2>

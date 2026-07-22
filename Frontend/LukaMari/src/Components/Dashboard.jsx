@@ -132,13 +132,13 @@ export default function Dashboard() {
 
                   <p className="text-gray-300">
 
-                    📅 {new Date(item.createdAt).toLocaleDateString()}
+                     {new Date(item.createdAt).toLocaleDateString()}
 
                   </p>
 
                   <p className="text-gray-400 text-sm">
 
-                    🕒 {new Date(item.createdAt).toLocaleTimeString()}
+                     {new Date(item.createdAt).toLocaleTimeString()}
 
                   </p>
 
@@ -148,7 +148,7 @@ export default function Dashboard() {
                   onClick={() => handleDelete(item.id)}
                   className="mt-5 w-full bg-red-600 hover:bg-red-700 py-2 rounded-xl transition"
                 >
-                  🗑 Delete Image
+                   Delete Image
                 </button>
 
               </div>
