@@ -42,11 +42,11 @@ export async function saveImage(imageData) {
     });
 
     request.onsuccess = () => {
-      console.log("✅ Saved to IndexedDB");
+      console.log(" Saved to IndexedDB");
     };
 
     request.onerror = (err) => {
-      console.log("❌ Save failed", err);
+      console.log(" Save failed", err);
       reject(err);
     };
 
@@ -55,7 +55,7 @@ export async function saveImage(imageData) {
     };
 
     tx.onerror = (err) => {
-      console.log("❌ Transaction error", err);
+      console.log(" Transaction error", err);
       reject(err);
     };
   });
@@ -76,7 +76,7 @@ export async function getImages() {
     };
 
     request.onerror = (err) => {
-      console.log("❌ Read failed", err);
+      console.log(" Read failed", err);
       reject(err);
     };
   });

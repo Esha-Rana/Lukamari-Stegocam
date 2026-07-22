@@ -179,13 +179,6 @@ export default function LoginPage() {
             </Link>
           </p>
         </div>
-
-        {/* Footer trust badges */}
-        <div className="flex items-center justify-center gap-6 mt-6 text-xs text-gray-600">
-          <span>🔒 End-to-End Encrypted</span>
-          <span>👁️ Zero Knowledge</span>
-          <span>🛡️ P2P Transfer</span>
-        </div>
       </div>
     </div>
   );

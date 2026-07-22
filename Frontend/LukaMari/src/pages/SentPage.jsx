@@ -50,7 +50,7 @@ export default function SentPage() {
         <div className="text-center py-20 text-gray-500">Loading...</div>
       ) : messages.length === 0 ? (
         <div className="bg-white/5 border border-white/10 rounded-2xl px-6 py-16 text-center">
-          <div className="text-4xl mb-3">📤</div>
+          <div className="text-4xl mb-3"></div>
           <p className="text-gray-400 text-sm">You haven't sent any secrets yet.</p>
           <button
             onClick={() => navigate('/new-secret')}

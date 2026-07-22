@@ -109,9 +109,9 @@ export default function DecodePage() {
       if (newAttempts >= 3) {
         setBlocked(true);
         setTimeLeft(30);
-        setError('🚫 Too many attempts. Locked for 30 seconds.');
+        setError(' Too many attempts. Locked for 30 seconds.');
       } else {
-        setError(`❌ Wrong password. ${3 - newAttempts} attempt${3 - newAttempts !== 1 ? 's' : ''} left.`);
+        setError(` Wrong password. ${3 - newAttempts} attempt${3 - newAttempts !== 1 ? 's' : ''} left.`);
       }
     } finally {
       setLoading(false);

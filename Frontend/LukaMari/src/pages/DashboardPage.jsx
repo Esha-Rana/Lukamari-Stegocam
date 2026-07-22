@@ -104,10 +104,10 @@ export default function DashboardPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Inbox"     value={stats.inbox}     color="purple" icon="📥" />
-        <StatCard label="Sent"      value={stats.sent}      color="blue"   icon="📤" />
-        <StatCard label="Delivered" value={stats.delivered} color="green"  icon="✅" />
-        <StatCard label="Read"      value={stats.read}      color="amber"  icon="👁️" />
+        <StatCard label="Inbox"     value={stats.inbox}     color="purple"  />
+        <StatCard label="Sent"      value={stats.sent}      color="blue"  />
+        <StatCard label="Delivered" value={stats.delivered} color="green"   />
+        <StatCard label="Read"      value={stats.read}      color="amber"  />
       </div>
 
       {/* Recent Conversations */}
@@ -172,13 +172,7 @@ export default function DashboardPage() {
         )}
       </div>
 
-      {/* Bottom trust bar */}
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-600 border-t border-white/5 pt-6">
-        <span className="flex items-center gap-1.5">🔒 End-to-End Encrypted</span>
-        <span className="flex items-center gap-1.5">🔄 Peer-to-Peer Transfer</span>
-        <span className="flex items-center gap-1.5">🏛️ Zero Knowledge Architecture</span>
-        <span className="flex items-center gap-1.5">🛡️ Your Data Stays Private</span>
-      </div>
+    
     </div>
   );
 }
