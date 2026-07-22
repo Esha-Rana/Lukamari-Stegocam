@@ -139,7 +139,7 @@ export default function NewSecretPage() {
 
       <div className="space-y-5">
         {/* ── 1. Receiver ── */}
-        <section className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+       <section className="relative z-20 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
           <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs flex items-center justify-center font-bold">1</span>
             Select Receiver
