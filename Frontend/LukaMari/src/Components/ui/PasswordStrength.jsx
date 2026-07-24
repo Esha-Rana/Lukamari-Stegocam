@@ -10,7 +10,7 @@ export default function PasswordStrength({ password }) {
   const levels = [
     { label: 'Weak',   color: 'bg-red-500',    text: 'text-red-400',    width: 'w-1/4' },
     { label: 'Fair',   color: 'bg-yellow-500',  text: 'text-yellow-400', width: 'w-2/4' },
-    { label: 'Good',   color: 'bg-blue-500',    text: 'text-blue-400',   width: 'w-3/4' },
+    { label: 'Good',   color: 'bg-cyan-500',    text: 'text-cyan-400',   width: 'w-3/4' },
     { label: 'Strong', color: 'bg-green-500',   text: 'text-green-400',  width: 'w-full' },
   ];
   const { label, color, text, width } = levels[Math.min(score - 1, 3)] ?? levels[0];

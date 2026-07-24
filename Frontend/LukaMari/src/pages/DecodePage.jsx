@@ -152,7 +152,7 @@ export default function DecodePage() {
           </div>
           <div>
             <p className="text-gray-500 text-xs mb-1">Message ID</p>
-            <p className="text-purple-400 font-mono text-sm">LK-{meta.id?.slice(0, 5).toUpperCase()}</p>
+            <p className="text-cyan-400 font-mono text-sm">LK-{meta.id?.slice(0, 5).toUpperCase()}</p>
           </div>
           <div>
             <p className="text-gray-500 text-xs mb-1">Received</p>
@@ -189,12 +189,12 @@ export default function DecodePage() {
             disabled={blocked || !!result}
             onKeyDown={e => e.key === 'Enter' && handleDecode()}
             className="w-full pr-12 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-purple-500 transition disabled:opacity-50"
+                       focus:outline-none focus:ring-2 focus:ring-cyan-500 transition disabled:opacity-50"
           />
           <button
             type="button"
             onClick={() => setShowPassword(p => !p)}
-            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-purple-400 transition"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-cyan-400 transition"
           >
             {showPassword ? <HiOutlineEyeOff className="w-5 h-5" /> : <HiOutlineEye className="w-5 h-5" />}
           </button>
@@ -216,8 +216,8 @@ export default function DecodePage() {
         onClick={handleDecode}
         disabled={loading || blocked || !!result || !imageUrl}
         className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl
-                   bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm
-                   shadow-lg shadow-purple-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-5"
+                   bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm
+                   shadow-lg shadow-cyan-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-5"
       >
         {loading ? (
           <>

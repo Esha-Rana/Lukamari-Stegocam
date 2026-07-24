@@ -88,7 +88,7 @@ export default function MessageDetailsPage() {
         </div>
         <div>
           <p className="text-gray-500 text-xs mb-2">Message ID</p>
-          <p className="text-purple-400 font-mono text-sm">LK-{meta.id?.slice(0, 5).toUpperCase()}</p>
+          <p className="text-cyan-400 font-mono text-sm">LK-{meta.id?.slice(0, 5).toUpperCase()}</p>
         </div>
         <div className="text-right">
           <p className="text-gray-500 text-xs mb-2">Status</p>
@@ -108,7 +108,7 @@ export default function MessageDetailsPage() {
               <div key={label} className="flex items-start gap-4 relative">
                 {/* Dot */}
                 <div className={`absolute -left-4 w-3 h-3 rounded-full mt-0.5 border-2 transition-colors
-                                ${done ? 'bg-purple-500 border-purple-500' : 'bg-transparent border-white/20'}`} />
+                                ${done ? 'bg-cyan-500 border-cyan-500' : 'bg-transparent border-white/20'}`} />
                 <div className="flex-1">
                   <p className={`text-sm font-medium ${done ? 'text-white' : 'text-gray-600'}`}>{label}</p>
                   <p className={`text-xs mt-0.5 ${done ? 'text-gray-400' : 'text-gray-700'}`}>
@@ -134,11 +134,11 @@ export default function MessageDetailsPage() {
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-white/5 rounded-xl p-4">
             <p className="text-gray-500 text-xs mb-1">Encryption</p>
-            <p className="text-purple-300 font-semibold text-sm">AES-256-GCM</p>
+            <p className="text-cyan-300 font-semibold text-sm">AES-256-GCM</p>
           </div>
           <div className="bg-white/5 rounded-xl p-4">
             <p className="text-gray-500 text-xs mb-1">Method</p>
-            <p className="text-purple-300 font-semibold text-sm">LSB (Least Significant Bit)</p>
+            <p className="text-cyan-300 font-semibold text-sm">LSB (Least Significant Bit)</p>
           </div>
         </div>
         <p className="text-gray-600 text-xs mt-3 leading-relaxed">

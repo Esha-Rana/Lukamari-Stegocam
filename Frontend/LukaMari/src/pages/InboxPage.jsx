@@ -117,7 +117,7 @@ export default function InboxPage() {
             onClick={() => setTab(t)}
             className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all
               ${tab === t
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/20'
+                ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-600/20'
                 : 'text-gray-400 hover:text-white'
               }`}
           >
@@ -139,7 +139,7 @@ export default function InboxPage() {
           {messages.map(msg => (
             <div
               key={msg.id}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-purple-500/30
+              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-500/30
                          rounded-2xl px-5 py-4 flex items-center gap-4 transition-all group"
             >
               {/* Avatar */}
@@ -165,8 +165,8 @@ export default function InboxPage() {
                 <button
                   id={`open-msg-${msg.id}`}
                   onClick={() => handleOpen(msg)}
-                  className="flex items-center gap-1.5 bg-purple-600/20 hover:bg-purple-600 border border-purple-500/30
-                             text-purple-300 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-all"
+                  className="flex items-center gap-1.5 bg-cyan-600/20 hover:bg-cyan-600 border border-cyan-500/30
+                             text-cyan-300 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-all"
                 >
                   Open
                   <HiOutlineArrowRight className="w-3.5 h-3.5" />

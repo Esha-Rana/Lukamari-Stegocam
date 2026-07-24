@@ -97,7 +97,7 @@ export default function ProfilePage() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-purple-600 hover:bg-purple-500
+            className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-cyan-600 hover:bg-cyan-500
                        flex items-center justify-center border-2 border-[#0a0b14] transition disabled:opacity-50"
           >
             {uploading
@@ -136,7 +136,7 @@ export default function ProfilePage() {
             value={form.username}
             onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
             className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm
-                       focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                       focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
           />
         </div>
 
@@ -156,8 +156,8 @@ export default function ProfilePage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm
-                     transition-all shadow-lg shadow-purple-600/30 disabled:opacity-50 flex items-center justify-center gap-2"
+          className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm
+                     transition-all shadow-lg shadow-cyan-600/30 disabled:opacity-50 flex items-center justify-center gap-2"
         >
           {saved ? (
             <><HiOutlineCheck className="w-4 h-4" /> Changes Saved</>

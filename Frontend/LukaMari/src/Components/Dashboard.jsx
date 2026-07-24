@@ -43,7 +43,7 @@ export default function Dashboard() {
 
         <div>
 
-          <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-bold text-blue-400">
+          <h1 className="text-2xl sm:text-2xl md:text-3xl xl:text-3xl font-bold text-cyan-400">
              Dashboard
           </h1>
 
@@ -55,7 +55,7 @@ export default function Dashboard() {
 
         <button
           onClick={() => navigate("/")}
-          className="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-xl transition text-sm sm:text-sm md:text-base xl:text-base"
+          className="bg-cyan-600 hover:bg-cyan-700 px-5 py-2 rounded-xl transition text-sm sm:text-sm md:text-base xl:text-base"
         >
           ← Back to Encode
         </button>
@@ -84,7 +84,7 @@ export default function Dashboard() {
              Storage Used
           </p>
 
-          <h2 className="text-3xl sm:text-3xl md:text-4xl xl:text-4xl font-bold text-blue-400 mt-2">
+          <h2 className="text-3xl sm:text-3xl md:text-4xl xl:text-4xl font-bold text-cyan-400 mt-2">
             {storageSize} MB
           </h2>
 

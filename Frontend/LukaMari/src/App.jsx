@@ -28,7 +28,7 @@ function PrivateRoute({ children }) {
     return (
       <div className="min-h-screen bg-[#0a0b14] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center animate-pulse">
+          <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center animate-pulse">
             <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
@@ -103,7 +103,7 @@ export default function App() {
       <Route path="*" element={
         <div className="min-h-screen bg-[#0a0b14] text-white flex items-center justify-center">
           <div className="text-center">
-            <p className="text-8xl font-bold text-purple-600/30">404</p>
+            <p className="text-8xl font-bold text-cyan-600/30">404</p>
             <p className="text-gray-400 mt-4">Page not found</p>
           </div>
         </div>
