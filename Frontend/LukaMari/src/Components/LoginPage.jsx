@@ -61,7 +61,7 @@ export default function LoginPage() {
     <div className="flex flex-col justify-center items-center w-3/4 min-h-screen">
       <div className="flex items-start fixed top-10 left-16">
         <h3 className="text-white tracking-widest font-extralight text-2xl">luka</h3>
-        <h2 className="text-blue-400 tracking-widest font-semibold text-2xl">MARI</h2>
+        <h2 className="text-cyan-400 tracking-widest font-semibold text-2xl">MARI</h2>
       </div>
 
       <div className="flex flex-col w-3/4 bg-black gap-1 rounded-2xl p-6">
@@ -79,7 +79,7 @@ export default function LoginPage() {
                   placeholder="abc@gmail.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="border-2 border-gray-400 p-1.5 rounded-xl focus:border-blue-600 focus:ring-2 focus:ring-blue-700 w-full flex bg-gray-900"
+                  className="border-2 border-gray-400 p-1.5 rounded-xl focus:border-cyan-600 focus:ring-2 focus:ring-cyan-700 w-full flex bg-gray-900"
                 />
               </label>
               {errors.email && (
@@ -97,7 +97,7 @@ export default function LoginPage() {
                   placeholder="********"
                   value={formData.password}
                   onChange={handleChange}
-                  className="border-2 border-gray-400 p-1.5 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-700 w-full flex bg-gray-800"
+                  className="border-2 border-gray-400 p-1.5 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-700 w-full flex bg-gray-800"
                 />
                 <button type="button" onClick={() => setshowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
@@ -113,7 +113,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="border-xl rounded-xl w-full mt-7 ml-2 bg-blue-700 hover:bg-blue-900 p-2 transition delay-50 text-white"
+              className="border-xl rounded-xl w-full mt-7 ml-2 bg-cyan-700 hover:bg-cyan-900 p-2 transition delay-50 text-white"
             >
               Log In
             </button>
@@ -123,10 +123,10 @@ export default function LoginPage() {
         <div className="flex justify-between mt-2">
           <div className="flex justify-start">
             <h4 className="text-white ml-3 font-extralight">Don't have an Account,</h4>
-            <Link to="/signup" className="text-blue-400 ml-1 font-semibold">Create One.</Link>
+            <Link to="/signup" className="text-cyan-400 ml-1 font-semibold">Create One.</Link>
           </div>
           <div className="flex justify-end items-end mr-3">
-            <Link to="/forgotpass" className="text-blue-400 font-semibold">
+            <Link to="/forgotpass" className="text-cyan-400 font-semibold">
               Forgot Your Password?
             </Link>
           </div>
@@ -136,8 +136,8 @@ export default function LoginPage() {
       <p className="text-gray-400 mt-3 flex">Or sign in with</p>
 
       <div className="mt-3 rouned flex w-3/4 justify-around">
-        <button type="button" className="text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400">Google</button>
-        <button type="button" className="text-white border bg-gray-900 p-3 rounded-xl hover:bg-blue-700 transition delay-45 w-49/100 border-gray-400">Github</button>
+        <button type="button" className="text-white border bg-gray-900 p-3 rounded-xl hover:bg-cyan-700 transition delay-45 w-49/100 border-gray-400">Google</button>
+        <button type="button" className="text-white border bg-gray-900 p-3 rounded-xl hover:bg-cyan-700 transition delay-45 w-49/100 border-gray-400">Github</button>
       </div>
 
       

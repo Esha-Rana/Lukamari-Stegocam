@@ -19,7 +19,7 @@ export default function ImageSelector({ onImageSelect }) {
   </p>
 
   <label
-    className="cursor-pointer bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-xl font-semibold transition"
+    className="cursor-pointer bg-cyan-600 hover:bg-cyan-700 px-6 py-3 rounded-xl font-semibold transition"
   >
      Choose Image
 

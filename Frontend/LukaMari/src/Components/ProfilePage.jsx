@@ -31,7 +31,7 @@ export default function ProfilePage() {
       {/* Nav */}
       <div className="px-4 py-4 sm:px-8">
         <span className="text-white font-extralight text-2xl tracking-widest">
-          luka<span className="text-blue-400 font-semibold">MARI</span>
+          luka<span className="text-cyan-400 font-semibold">MARI</span>
         </span>
       </div> 
       
@@ -41,7 +41,7 @@ export default function ProfilePage() {
 
           {/* Avatar + user info */}
           <div className="flex flex-col items-center mb-7">
-            <div className="w-16 h-16 rounded-full bg-blue-800 flex items-center justify-center text-white text-xl font-semibold mb-3 select-none">
+            <div className="w-16 h-16 rounded-full bg-cyan-800 flex items-center justify-center text-white text-xl font-semibold mb-3 select-none">
               {initials || "?"}
             </div>
             <h2 className="text-white font-semibold text-lg tracking-wide">{form.displayname || "—"}</h2>
@@ -63,7 +63,7 @@ export default function ProfilePage() {
                 type="text"
                 value={form.displayname}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
               />
             </div>
             <div>
@@ -75,14 +75,14 @@ export default function ProfilePage() {
                 name="email"
                 type="email"
                 value={form.email}
-                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
               />
             </div>
 
             {/* Save */}
             <button
               onClick={handleSave}
-              className="w-full py-3 text-sm font-semibold text-white rounded-xl bg-blue-700 hover:bg-blue-600 transition-colors mt-1"
+              className="w-full py-3 text-sm font-semibold text-white rounded-xl bg-cyan-700 hover:bg-cyan-600 transition-colors mt-1"
             >
               {saved ? "✓ Changes saved" : "Save changes"}
             </button>
@@ -116,7 +116,7 @@ export default function ProfilePage() {
           </div>
 
            <p className="mt-6 text-center text-sm text-gray-500">
-            <Link to="/" className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+            <Link to="/" className="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">
               ← Back to app
             </Link>
           </p>

@@ -20,14 +20,14 @@ function Field({ label, id, type = 'text', placeholder, value, onChange, error }
           value={value}
           onChange={onChange}
           className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-600 text-sm
-                      focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all
-                      ${error ? 'border-red-500' : 'border-white/10 focus:border-purple-500'}`}
+                      focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all
+                      ${error ? 'border-red-500' : 'border-white/10 focus:border-cyan-500'}`}
         />
         {isPassword && (
           <button
             type="button"
             onClick={() => setShow(s => !s)}
-            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-purple-400 transition"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-cyan-400 transition"
           >
             {show ? <HiOutlineEyeOff className="w-5 h-5" /> : <HiOutlineEye className="w-5 h-5" />}
           </button>
@@ -83,15 +83,15 @@ export default function SignupPage() {
     return (
       <div className="min-h-screen w-full bg-[#0a0b14] flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-2xl bg-purple-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-purple-600/30">
+          <div className="w-16 h-16 rounded-2xl bg-cyan-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-cyan-600/30">
             <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-white">Check your email</h2>
-          <p className="mt-2 text-sm text-gray-400">We sent a verification link to <strong className="text-purple-400">{form.email}</strong></p>
+          <p className="mt-2 text-sm text-gray-400">We sent a verification link to <strong className="text-cyan-400">{form.email}</strong></p>
           <p className="mt-1 text-xs text-gray-600">Don't forget to check your spam folder.</p>
-          <Link to="/login" className="mt-6 inline-block text-sm text-purple-400 hover:text-purple-300 font-medium transition">
+          <Link to="/login" className="mt-6 inline-block text-sm text-cyan-400 hover:text-cyan-300 font-medium transition">
             ← Back to sign in
           </Link>
         </div>
@@ -103,17 +103,17 @@ export default function SignupPage() {
     <div className="min-h-screen w-full bg-[#0a0b14] flex items-center justify-center px-4">
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-900/20 rounded-full blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center shadow-lg shadow-purple-600/30">
+          <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center shadow-lg shadow-cyan-600/30">
             <HiOutlineShieldCheck className="text-white w-6 h-6" />
           </div>
           <span className="text-white font-extralight text-2xl tracking-widest">
-            luka<span className="text-purple-400 font-bold">MARI</span>
+            luka<span className="text-cyan-400 font-bold">MARI</span>
           </span>
         </div>
 
@@ -141,8 +141,8 @@ export default function SignupPage() {
               id="signup-submit"
               onClick={handleSubmit}
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm
-                         transition-all shadow-lg shadow-purple-600/30 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+              className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm
+                         transition-all shadow-lg shadow-cyan-600/30 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -158,7 +158,7 @@ export default function SignupPage() {
 
           <p className="mt-6 text-center text-sm text-gray-400">
             Already have an account?{' '}
-            <Link to="/login" className="text-purple-400 font-semibold hover:text-purple-300 transition">
+            <Link to="/login" className="text-cyan-400 font-semibold hover:text-cyan-300 transition">
               Sign in
             </Link>
           </p>

@@ -129,7 +129,7 @@ export default function ActiveTransferPage() {
     <div className="min-h-screen flex items-center justify-center p-6">
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-900/15 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-cyan-900/15 rounded-full blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
@@ -145,7 +145,7 @@ export default function ActiveTransferPage() {
             <div className="relative">
               <Avatar name={profile?.username ?? ''} avatarUrl={profile?.avatar_url} size="xl" />
               {status !== 'idle' && status !== 'error' && (
-                <div className="absolute inset-0 rounded-full border-2 border-purple-500 animate-ping opacity-30" />
+                <div className="absolute inset-0 rounded-full border-2 border-cyan-500 animate-ping opacity-30" />
               )}
             </div>
             <p className="text-white text-sm font-medium">You</p>
@@ -154,7 +154,7 @@ export default function ActiveTransferPage() {
 
           {/* Animated connecting line + shield */}
           <div className="flex-1 flex items-center justify-center relative px-4">
-            <div className="w-full h-0.5 bg-gradient-to-r from-purple-600/50 via-purple-400 to-purple-600/50 relative overflow-hidden rounded-full">
+            <div className="w-full h-0.5 bg-gradient-to-r from-cyan-600/50 via-cyan-400 to-cyan-600/50 relative overflow-hidden rounded-full">
               <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent
                               ${status !== 'complete' && status !== 'error' ? 'animate-[shimmer_1.5s_ease-in-out_infinite]' : ''}`}
                    style={{ width: '60%', animation: status !== 'complete' ? 'shimmer 1.5s ease-in-out infinite' : 'none' }}
@@ -165,7 +165,7 @@ export default function ActiveTransferPage() {
                               ? 'bg-green-600 shadow-green-600/30'
                               : status === 'error'
                               ? 'bg-red-600 shadow-red-600/30'
-                              : 'bg-purple-600 shadow-purple-600/30'
+                              : 'bg-cyan-600 shadow-cyan-600/30'
                             }`}>
               <HiOutlineShieldCheck className="text-white w-5 h-5" />
             </div>
@@ -190,7 +190,7 @@ export default function ActiveTransferPage() {
                 {/* Icon */}
                 <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-all duration-500
                                 ${done ? 'bg-green-600'
-                                  : active ? 'bg-purple-600'
+                                  : active ? 'bg-cyan-600'
                                   : 'bg-white/10'}`}>
                   {done ? (
                     <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none">
@@ -207,7 +207,7 @@ export default function ActiveTransferPage() {
                 {/* Label */}
                 <span className={`text-sm transition-colors duration-300
                                 ${done ? 'text-green-400'
-                                  : active ? 'text-purple-300 font-medium'
+                                  : active ? 'text-cyan-300 font-medium'
                                   : 'text-gray-600'}`}>
                   {label}
                 </span>
@@ -217,7 +217,7 @@ export default function ActiveTransferPage() {
                   <div className="flex-1 flex items-center gap-2">
                     <div className="flex-1 bg-white/10 rounded-full h-1.5">
                       <div
-                        className="h-1.5 rounded-full bg-purple-500 transition-all duration-300"
+                        className="h-1.5 rounded-full bg-cyan-500 transition-all duration-300"
                         style={{ width: `${progress}%` }}
                       />
                     </div>

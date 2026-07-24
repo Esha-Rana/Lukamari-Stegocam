@@ -144,12 +144,12 @@ export default function NewSecretPage() {
         {/* ── 1. Receiver ── */}
        <section className="relative z-20 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
           <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs flex items-center justify-center font-bold">1</span>
+            <span className="w-6 h-6 rounded-full bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 text-xs flex items-center justify-center font-bold">1</span>
             Select Receiver
           </h2>
 
           {receiver ? (
-            <div className="flex items-center gap-3 bg-purple-600/10 border border-purple-500/20 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-3 bg-cyan-600/10 border border-cyan-500/20 rounded-xl px-4 py-3">
               <Avatar name={receiver.username} avatarUrl={receiver.avatar_url} size="sm" />
               <div className="flex-1">
                 <p className="text-white font-medium text-sm">{receiver.username}</p>
@@ -172,7 +172,7 @@ export default function NewSecretPage() {
                   value={query}
                   onChange={e => searchUsers(e.target.value)}
                   className="w-full pl-9 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white
-                             placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                             placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
                 />
               </div>
               {(results.length > 0 || searching) && (
@@ -201,7 +201,7 @@ export default function NewSecretPage() {
         {/* ── 2. Cover Image ── */}
         <section className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
           <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs flex items-center justify-center font-bold">2</span>
+            <span className="w-6 h-6 rounded-full bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 text-xs flex items-center justify-center font-bold">2</span>
             Upload Cover Image
           </h2>
 
@@ -222,10 +222,10 @@ export default function NewSecretPage() {
             </div>
           ) : (
             <label
-              className="flex flex-col items-center justify-center border-2 border-dashed border-white/10 hover:border-purple-500/50
+              className="flex flex-col items-center justify-center border-2 border-dashed border-white/10 hover:border-cyan-500/50
                          rounded-xl p-10 cursor-pointer transition group"
             >
-              <HiOutlinePhotograph className="w-10 h-10 text-gray-600 group-hover:text-purple-400 transition mb-3" />
+              <HiOutlinePhotograph className="w-10 h-10 text-gray-600 group-hover:text-cyan-400 transition mb-3" />
               <p className="text-gray-400 text-sm text-center">Click to upload or drag & drop</p>
               <p className="text-gray-600 text-xs mt-1">PNG, JPG up to 10MB</p>
               <input
@@ -242,7 +242,7 @@ export default function NewSecretPage() {
         {/* ── 3. Secret Message ── */}
         <section className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
           <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs flex items-center justify-center font-bold">3</span>
+            <span className="w-6 h-6 rounded-full bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 text-xs flex items-center justify-center font-bold">3</span>
             Secret Message
           </h2>
           <textarea
@@ -251,7 +251,7 @@ export default function NewSecretPage() {
             onChange={e => setMessage(e.target.value.slice(0, MAX_CHARS))}
             rows={4}
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none transition"
+                       focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none transition"
           />
           <div className="flex justify-end mt-1">
             <span className={`text-xs ${message.length > MAX_CHARS * 0.9 ? 'text-amber-400' : 'text-gray-600'}`}>
@@ -263,7 +263,7 @@ export default function NewSecretPage() {
         {/* ── 4. Password ── */}
         <section className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
           <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs flex items-center justify-center font-bold">4</span>
+            <span className="w-6 h-6 rounded-full bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 text-xs flex items-center justify-center font-bold">4</span>
             Encryption Password
           </h2>
           <div className="relative">
@@ -273,12 +273,12 @@ export default function NewSecretPage() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               className="w-full pr-12 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 text-sm
-                         focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                         focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
             />
             <button
               type="button"
               onClick={() => setShowPassword(p => !p)}
-              className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-purple-400 transition"
+              className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-cyan-400 transition"
             >
               {showPassword ? <HiOutlineEyeOff className="w-5 h-5" /> : <HiOutlineEye className="w-5 h-5" />}
             </button>
@@ -304,8 +304,8 @@ export default function NewSecretPage() {
           onClick={handleEncode}
           disabled={encoding}
           className="w-full flex items-center justify-center gap-3 py-4 rounded-xl
-                     bg-purple-600 hover:bg-purple-500 text-white font-semibold text-base
-                     shadow-lg shadow-purple-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                     bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-base
+                     shadow-lg shadow-cyan-600/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {encoding ? (
             <>

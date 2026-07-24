@@ -55,17 +55,17 @@ export default function ForgotPassword() {
     <div className="min-h-screen w-full bg-[#0a0b14] flex items-center justify-center px-4">
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-900/20 rounded-full blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center shadow-lg shadow-purple-600/30">
+          <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center shadow-lg shadow-cyan-600/30">
             <HiOutlineShieldCheck className="text-white w-6 h-6" />
           </div>
           <span className="text-white font-extralight text-2xl tracking-widest">
-            luka<span className="text-purple-400 font-bold">MARI</span>
+            luka<span className="text-cyan-400 font-bold">MARI</span>
           </span>
         </div>
 
@@ -87,8 +87,8 @@ export default function ForgotPassword() {
                   value={email}
                   onChange={handleChange}
                   className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-600 text-sm
-                              focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all
-                              ${error ? 'border-red-500' : 'border-white/10 focus:border-purple-500'}`}
+                              focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all
+                              ${error ? 'border-red-500' : 'border-white/10 focus:border-cyan-500'}`}
                 />
               </div>
               {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
@@ -98,8 +98,8 @@ export default function ForgotPassword() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm
-                         transition-all shadow-lg shadow-purple-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm
+                         transition-all shadow-lg shadow-cyan-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -116,7 +116,7 @@ export default function ForgotPassword() {
           </form>
 
           <div className="flex justify-center items-center mt-6">
-            <Link to="/login" className="text-purple-400 text-sm hover:text-purple-300 font-medium transition">
+            <Link to="/login" className="text-cyan-400 text-sm hover:text-cyan-300 font-medium transition">
               Back to Sign In
             </Link>
           </div>

@@ -54,17 +54,17 @@ export default function LoginPage() {
     <div className="min-h-screen w-full bg-[#0a0b14] flex items-center justify-center px-4">
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-900/20 rounded-full blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center shadow-lg shadow-purple-600/30">
+          <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center shadow-lg shadow-cyan-600/30">
             <HiOutlineShieldCheck className="text-white w-6 h-6" />
           </div>
           <span className="text-white font-extralight text-2xl tracking-widest">
-            luka<span className="text-purple-400 font-bold">MARI</span>
+            luka<span className="text-cyan-400 font-bold">MARI</span>
           </span>
         </div>
 
@@ -85,8 +85,8 @@ export default function LoginPage() {
                 value={form.email}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-600 text-sm
-                            focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all
-                            ${errors.email ? 'border-red-500' : 'border-white/10 focus:border-purple-500'}`}
+                            focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all
+                            ${errors.email ? 'border-red-500' : 'border-white/10 focus:border-cyan-500'}`}
               />
               {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
             </div>
@@ -103,13 +103,13 @@ export default function LoginPage() {
                   value={form.password}
                   onChange={handleChange}
                   className={`w-full px-4 py-3 pr-12 rounded-xl bg-white/5 border text-white placeholder-gray-600 text-sm
-                              focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all
-                              ${errors.password ? 'border-red-500' : 'border-white/10 focus:border-purple-500'}`}
+                              focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all
+                              ${errors.password ? 'border-red-500' : 'border-white/10 focus:border-cyan-500'}`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(p => !p)}
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-purple-400 transition"
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-cyan-400 transition"
                 >
                   {showPassword ? <HiOutlineEyeOff className="w-5 h-5" /> : <HiOutlineEye className="w-5 h-5" />}
                 </button>
@@ -118,7 +118,7 @@ export default function LoginPage() {
             </div>
 
             <div className="flex justify-end">
-              <Link to="/forgotpass" className="text-purple-400 text-xs hover:text-purple-300 transition">
+              <Link to="/forgotpass" className="text-cyan-400 text-xs hover:text-cyan-300 transition">
                 Forgot password?
               </Link>
             </div>
@@ -133,8 +133,8 @@ export default function LoginPage() {
               type="submit"
               id="login-submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm
-                         transition-all shadow-lg shadow-purple-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm
+                         transition-all shadow-lg shadow-cyan-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -174,7 +174,7 @@ export default function LoginPage() {
 
           <p className="mt-6 text-center text-sm text-gray-400">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-purple-400 font-semibold hover:text-purple-300 transition">
+            <Link to="/signup" className="text-cyan-400 font-semibold hover:text-cyan-300 transition">
               Sign up
             </Link>
           </p>

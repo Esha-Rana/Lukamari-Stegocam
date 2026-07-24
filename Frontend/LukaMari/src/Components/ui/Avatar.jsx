@@ -31,7 +31,7 @@ export default function Avatar({ name = '', avatarUrl = null, size = 'md' }) {
 
   return (
     <div
-      className={`${cls} bg-gradient-to-br from-purple-600 to-indigo-700 text-white`}
+      className={`${cls} bg-gradient-to-br from-cyan-600 to-indigo-700 text-white`}
     >
       {initials || '?'}
     </div>

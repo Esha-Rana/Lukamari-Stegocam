@@ -21,7 +21,7 @@ export default function Share() {
               Generate a Room ID and share it with your peer, or enter theirs.
             </p>
             <button onClick={generateRoom}
-              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+              className="w-full bg-cyan-600 text-white py-2 rounded-lg hover:bg-cyan-700">
               Generate Room ID
             </button>
             <div className="flex gap-2">
@@ -56,7 +56,7 @@ export default function Share() {
                 <input type="file" accept="image/*"
                   onChange={e => sendFile(e.target.files[0])}
                   className="block w-full text-sm file:mr-4 file:py-2 file:px-4
-                    file:rounded-lg file:border-0 file:bg-blue-600 file:text-white" />
+                    file:rounded-lg file:border-0 file:bg-cyan-600 file:text-white" />
               </div>
             )}
 

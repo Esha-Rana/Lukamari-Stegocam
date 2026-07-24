@@ -13,7 +13,7 @@ function PasswordStrength({ password }) {
   const levels = [
     { label: "Weak",   color: "bg-red-500",   text: "text-red-400",    width: "w-1/4" },
     { label: "Fair",   color: "bg-yellow-500", text: "text-yellow-400", width: "w-2/4" },
-    { label: "Good",   color: "bg-blue-500",   text: "text-blue-400",   width: "w-3/4" },
+    { label: "Good",   color: "bg-cyan-500",   text: "text-cyan-400",   width: "w-3/4" },
     { label: "Strong", color: "bg-green-500",  text: "text-green-400",  width: "w-full" },
   ];
   const { label, color, text, width } = levels[Math.min(score - 1, 3)] ?? levels[0];
@@ -45,8 +45,8 @@ function Field({ label, id, type = "text", placeholder, value, onChange, error }
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className={`w-full px-4 py-3 rounded-xl bg-gray-800 border text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-            error ? "border-red-500" : "border-gray-700 focus:border-blue-500"
+          className={`w-full px-4 py-3 rounded-xl bg-gray-800 border text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
+            error ? "border-red-500" : "border-gray-700 focus:border-cyan-500"
           }`}
         />
         {isPassword && (
@@ -130,7 +130,7 @@ export default function SignupPage() {
     return (
       <div className="min-h-screen w-full bg-[#16171d] flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center mx-auto mb-5">
+          <div className="w-16 h-16 rounded-full bg-cyan-600 flex items-center justify-center mx-auto mb-5">
             <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -139,7 +139,7 @@ export default function SignupPage() {
           <p className="mt-2 text-sm text-gray-400">Don't forget to check spams.</p>
           <button
             onClick={() => { setForm({ fullname: "", email: "", password: "", confirm: "" }); setSubmitted(false); }}
-            className="mt-6 text-sm text-blue-400 hover:text-blue-300 font-medium transition-colors"
+            className="mt-6 text-sm text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
           >
             ← Back to sign up
           </button>
@@ -154,7 +154,7 @@ export default function SignupPage() {
       {/* Nav */}
       <div className="px-4 py-4 sm:px-8">
         <span className="text-white font-extralight text-2xl tracking-widest">
-          luka<span className="text-blue-400 font-semibold">MARI</span>
+          luka<span className="text-cyan-400 font-semibold">MARI</span>
         </span>
       </div>
 
@@ -179,7 +179,7 @@ export default function SignupPage() {
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="w-full py-2.5 sm:py-3 text-sm font-semibold text-white rounded-xl bg-blue-700 hover:bg-blue-900 disabled:opacity-60 disabled:cursor-not-allowed transition-colors mt-2"
+              className="w-full py-2.5 sm:py-3 text-sm font-semibold text-white rounded-xl bg-cyan-700 hover:bg-cyan-900 disabled:opacity-60 disabled:cursor-not-allowed transition-colors mt-2"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -195,7 +195,7 @@ export default function SignupPage() {
 
           <p className="mt-5 text-center text-sm text-white font-extralight">
             Already have an account?{" "}
-            <Link to="/" className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+            <Link to="/" className="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">
               Sign in
             </Link>
           </p>

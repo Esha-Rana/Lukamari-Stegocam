@@ -35,11 +35,11 @@ export default function Sidebar({ inboxCount = 0 }) {
       {/* Logo */}
       <div className="px-6 py-6 border-b border-white/5">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-cyan-600 flex items-center justify-center">
             <HiOutlineShieldCheck className="text-white w-5 h-5" />
           </div>
           <span className="text-white font-extralight text-lg tracking-widest">
-            luka<span className="text-purple-400 font-bold">MARI</span>
+            luka<span className="text-cyan-400 font-bold">MARI</span>
           </span>
         </div>
       </div>
@@ -53,7 +53,7 @@ export default function Sidebar({ inboxCount = 0 }) {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group
               ${isActive
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                ? 'bg-cyan-600/20 text-cyan-300 border border-cyan-500/30'
                 : 'text-gray-400 hover:text-white hover:bg-white/5'
               }`
             }
@@ -61,7 +61,7 @@ export default function Sidebar({ inboxCount = 0 }) {
             <Icon className="w-5 h-5 shrink-0" />
             <span className="flex-1">{label}</span>
             {badge && inboxCount > 0 && (
-              <span className="bg-purple-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+              <span className="bg-cyan-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
                 {inboxCount > 99 ? '99+' : inboxCount}
               </span>
             )}

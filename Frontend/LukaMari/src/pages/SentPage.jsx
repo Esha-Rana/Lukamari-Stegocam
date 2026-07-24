@@ -54,7 +54,7 @@ export default function SentPage() {
           <p className="text-gray-400 text-sm">You haven't sent any secrets yet.</p>
           <button
             onClick={() => navigate('/new-secret')}
-            className="mt-4 text-purple-400 text-sm hover:text-purple-300 transition"
+            className="mt-4 text-cyan-400 text-sm hover:text-cyan-300 transition"
           >
             Send your first secret →
           </button>
@@ -64,7 +64,7 @@ export default function SentPage() {
           {messages.map(msg => (
             <div
               key={msg.id}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-purple-500/30
+              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-500/30
                          rounded-2xl px-5 py-4 flex items-center gap-4 transition-all group cursor-pointer"
               onClick={() => navigate(`/message/${msg.id}`)}
             >
@@ -83,7 +83,7 @@ export default function SentPage() {
               </div>
               <div className="flex items-center gap-3 shrink-0">
                 <StatusBadge status={msg.status} />
-                <HiOutlineArrowRight className="w-4 h-4 text-gray-600 group-hover:text-purple-400 transition" />
+                <HiOutlineArrowRight className="w-4 h-4 text-gray-600 group-hover:text-cyan-400 transition" />
               </div>
             </div>
           ))}
